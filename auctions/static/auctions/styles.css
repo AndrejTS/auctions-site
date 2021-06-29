@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(200, 206, 203);
+  font-size: 18px;
+  font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif';
+}
+
+h1 {
+  font-weight: 600;
+  padding: 5px 16px;
+  margin-bottom: 0;
+}
+
+.signed {
+  padding-left: 20px;
+}
+
+.nav {
+  background-color: rgb(171, 172, 175);
+}
+
+.nav-link {
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.main-container {
+  background-color: rgb(219, 222, 226);
+  margin-top: 0;
+  padding-top: 0;
+  min-height: 100vh;
+  border-left: 1px solid rgb(27, 29, 27);
+  border-right: 1px solid rgb(27, 29, 27);
+}
+
+.page-header {
+  font-size: 30px;
+  margin: 10px;
+}
+
+.listing-container {
+  position: relative;
+  padding: 5px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  background-color: #fff;
+}
+
+.img-container {
+  height: 250px;
+}
+
+.img-container img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.listing-title {
+  font-size: 20px;
+  color: black;
+  margin-left: 10px;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.listing-price {
+  font-size: 25px;
+  color: black;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.listed-by {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  width: 190px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+form {
+  display: inline-block;
+}
+
+.img-listing-large-container {
+  width: 100%;
+  padding: 0px 30px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(206, 201, 201);
+}
+
+.img-listing-large {
+  max-width: 100%;
+  margin: auto;
+}
+
+.listing-basic-info {
+  border: 1px solid rgb(206, 201, 201);
+  border-radius: 1px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; */
+  background-color: rgb(255, 255, 255);
+  padding: 25px;
+}
+
+.listing-basic-info label {
+  font-size: 14px;
+  display: block;
+}
+
+.watchlist-form {
+  display: block;
+  margin-top: 15px;
+}
