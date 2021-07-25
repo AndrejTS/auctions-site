@@ -18,10 +18,15 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Login">
         {% if request.GET.next %}
-            <input type='hidden' name='next' value={{ request.GET.next}}>
+            <input type='hidden' name='next' value={{ request.GET.next }}>
         {% endif %}
     </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+    Don't have an account? 
+    {% if request.GET.next %}
+            <a href="{% url 'register' %}?next={{ request.GET.next }}">Register here.</a>
+    {% else %}
+        <a href="{% url 'register' %}">Register here.</a>
+    {% endif %}
 
 {% endblock %}

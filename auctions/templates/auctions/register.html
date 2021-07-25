@@ -23,8 +23,16 @@
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
+        {% if request.GET.next %}
+            <input type='hidden' name='next' value={{ request.GET.next }}>
+        {% endif %}
     </form>
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    Already have an account? 
+    {% if request.GET.next %}
+        <a href="{% url 'login' %}?next={{ request.GET.next }}">Log In here.</a>
+    {% else %}
+        <a href="{% url 'login' %}">Log In here.</a>
+    {% endif %}
 
 {% endblock %}

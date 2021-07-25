@@ -4,16 +4,25 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from .models import User, Listing, Bid, Comment
 from .forms import ListingForm, BidForm
 
 
+def paginator_helper(request, listings):
+    p = Paginator(listings, 40)
+    page_num = request.GET.get('page', 1)
+    page = p.page(page_num)
+    return page
+
+
 def index(request):
-    bids = Bid.objects.all()
+    listings = Listing.objects.filter(closed=False).all()
+    page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': 'Active Listings',
-        'listings': Listing.objects.filter(closed=False).all()
+        'listings_page': page
     })
 
 
@@ -27,6 +36,8 @@ def create_listing(request):
             new_listing.current_price = new_listing.starting_price
             new_listing.save()
             return HttpResponseRedirect(reverse("listing", kwargs={'id': new_listing.id}))
+        else:
+            return HttpResponse('invalid')
     else:
         form = ListingForm()
         return render(request, "auctions/create_listing.html", {
@@ -36,13 +47,24 @@ def create_listing(request):
 
 def listing(request, id):
     if request.GET.get('error'):
-        message = 'The bid is too low'
+        error = request.GET.get('error')
+        if error == 'low_bid':
+            message = 'The bid is too low'
     else:
         message = None
     listing = Listing.objects.get(pk=id)
     bids = Bid.objects.filter(listing=listing).all()
     comments = Comment.objects.filter(listing=listing).all()
     is_watched = False
+
+    # check if user is bidding
+    user_in_bids = False
+    if request.user.is_authenticated:
+        for bid in bids:
+            if bid.user == request.user:
+                user_in_bids = True
+                break
+
     if request.user.is_authenticated:
         if listing in request.user.watchlist.all():
             is_watched = True
@@ -52,16 +74,29 @@ def listing(request, id):
         'comments': comments,
         'bid_form': BidForm(),
         'watched': is_watched,
-        'message': message
+        'message': message,
+        'user_in_bids': user_in_bids
     })
 
 
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        return HttpResponseRedirect(
+            reverse("search_results", kwargs={'searched': searched}))
+
+
+def search_results(request, searched):
+    results = Listing.objects.filter(title__contains=searched)
+    return render(request, "auctions/search_results.html", {
+        'searched': searched, 'results': results})
+
+
 @login_required(login_url='/login/')
-def bid(request):
-    pk = request.POST['id']
+def bid(request, id):
     if request.method == "POST":
         bid_value = request.POST['amount']
-        listing = Listing.objects.get(pk=pk)
+        listing = Listing.objects.get(pk=id)
         if listing.closed:
             return HttpResponse('Listing is no active')
         bid_is_too_low = False
@@ -72,7 +107,7 @@ def bid(request):
             bid_is_too_low = True
         if bid_is_too_low:
             return HttpResponseRedirect(
-                reverse("listing", kwargs={'id': pk}) + '?error=true')
+                reverse("listing", kwargs={'id': id}) + '?error=low_bid')
         else:
             form = BidForm(request.POST)
             if form.is_valid():
@@ -83,10 +118,10 @@ def bid(request):
                 listing.last_bid = bid_value
                 listing.current_price = bid_value
                 listing.save()
-            return HttpResponseRedirect(reverse("listing", kwargs={'id': pk}))
+            return HttpResponseRedirect(reverse("listing", kwargs={'id': id}) + '?bid=placed')
     else:
         return HttpResponseRedirect(
-            reverse("listing", kwargs={'id': pk}))
+            reverse("listing", kwargs={'id': id}))
 
 
 @login_required(login_url='/login/')
@@ -117,21 +152,27 @@ def close_listing(request):
 
 @login_required(login_url='/login/')
 def watchlist(request):
+    if request.method == "GET":
+        listings = request.user.watchlist.all()
+        page = paginator_helper(request, listings)
+        return render(request, "auctions/listings.html", {
+            'title': 'Watchlist',
+            'listings_page': page
+        })
+
+
+@login_required(login_url='/login/')
+def watchlist_switch(request, id):
+    # add or remove item from user's watchlist
     if request.method == "POST":
         command = request.POST['watchlist_command']
-        listing_id = request.POST['listing_id']
-        listing = Listing.objects.get(pk=listing_id)
+        listing = Listing.objects.get(pk=id)
         if command == 'add':
             listing.watchlist_users.add(request.user)
         elif command == 'remove':
             listing.watchlist_users.remove(request.user)
-        return HttpResponseRedirect(reverse("listing", kwargs={'id': listing_id}))
-    else:
-        listings = request.user.watchlist.all()
-        return render(request, "auctions/listings.html", {
-            'title': 'Watchlist',
-            'listings': listings
-        })
+    return HttpResponseRedirect(
+        reverse("listing", kwargs={'id': id}))
 
 
 def categories(request):
@@ -150,9 +191,10 @@ def categories(request):
 
 def category(request, category_name):
     listings = Listing.objects.filter(category=category_name).all()
+    page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': category_name,
-        'listings': listings
+        'listings_page': page
     })
 
 
@@ -164,20 +206,64 @@ def profile(request):
 
 
 @login_required(login_url='/login/')
-def user_listings(request):
-    listings = request.user.listings.all()
+def i_am_bidding(request):
+    bids = request.user.bids.order_by('-date_added').all()
+    listings = []
+    for bid in bids:
+        if bid.listing not in listings:
+            if not bid.listing.closed:
+                listings.append(bid.listing)
+    page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
-        'title': 'Your listings',
-        'listings': listings
+        'title': 'I am bidding',
+        'listings_page': page
     })
 
 
 @login_required(login_url='/login/')
-def user_wins(request):
+def my_listings(request):
+    listings = request.user.listings.all()
+    page = paginator_helper(request, listings)
+    return render(request, "auctions/listings.html", {
+        'title': 'Your listings',
+        'listings_page': page
+    })
+
+
+@login_required(login_url='/login/')
+def my_wins(request):
     listings = request.user.wins.all()
+    page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': 'Auctions you won',
-        'listings': listings
+        'listings_page': page
+    })
+
+
+@login_required(login_url='/login/')
+def dont_won(request):
+    bids = request.user.bids.order_by('-date_added').all()
+    listings = []
+    for bid in bids:
+        if bid.listing not in listings:
+            if bid.listing.closed and bid.listing.winner != request.user:
+                listings.append(bid.listing)
+    page = paginator_helper(request, listings)
+    return render(request, "auctions/listings.html", {
+        'title': "Auctions you don't won",
+        'listings_page': page
+    })
+
+
+def user_listings(request, username):
+    user = User.objects.get(username=username)
+    if user == request.user:
+        return HttpResponseRedirect(reverse('my_listings'))
+    listings = Listing.objects.filter(owner=user).filter(closed=False).all()
+    page = paginator_helper(request, listings)
+    return render(request, "auctions/listings.html", {
+        'title': f"Listings by {username}:",
+        'listings_page': page
     })
 
 
@@ -231,6 +317,9 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        if 'next' in request.POST:
+            return HttpResponseRedirect(request.POST['next'])
+        else:
+            return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")

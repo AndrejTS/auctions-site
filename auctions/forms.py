@@ -14,6 +14,7 @@ class ListingForm(ModelForm):
         ('Other', 'Other'),
     )
     category = forms.ChoiceField(choices=CHOICES)
+    description = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = Listing

@@ -3,8 +3,14 @@
 {% block body %}
 
 <h2 class='page-header'>Categories</h2>
-{% for category in categories %}
-    <a href={% url 'category' category %}>{{ category }}</a>
-{% endfor %}
+
+<div class='categories-container'>
+    {% for category in categories %}
+        <div class='category'>
+            <a href={% url 'category' category %}><button class='btn btn-secondary'>{{ category }}</button></a>
+        </div>
+
+    {% endfor %}
+</div>
 
 {% endblock %}

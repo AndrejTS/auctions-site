@@ -2,7 +2,34 @@
 
 {% block body %}
 
-<h2 class='page-header'>Your profile</h2>
-<a href="{% url 'user_listings' %}">Your listings</a>
-<a href="{% url 'user_wins' %}">Auctions you won</a>
+<h2 class='page-header my-account'>My Account</h2>
+
+<div class='profile-btns'>
+    <div>
+        <a href="{% url 'i_am_bidding' %}">
+            <button class='btn btn-secondary'>I am bidding</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'my_wins' %}">
+            <button class='btn btn-secondary'>Auctions you won</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'dont_won' %}">
+            <button class='btn btn-secondary'>Auctions you don't won</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'my_listings' %}">
+            <button class='btn btn-secondary'>Your listings</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'logout' %}">
+            <button class='btn btn-secondary'>Logout</button>
+        </a>
+    </div>
+</div>
+
 {% endblock %}

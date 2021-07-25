@@ -31,6 +31,7 @@ class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name='bids')
+    date_added = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
@@ -39,3 +40,4 @@ class Comment(models.Model):
         Listing, on_delete=models.CASCADE, default=None)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name='comments')
+    date_added = models.DateTimeField(auto_now_add=True)

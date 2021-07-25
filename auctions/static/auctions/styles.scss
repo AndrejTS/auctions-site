@@ -1,4 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400&family=Teko:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400&family=Teko:wght@300&display=swap');
+
+$price-color: #000000;
+$anchor-main-hover-color: rgb(255, 201, 71);
+
 * {
   margin: 0;
   padding: 0;
@@ -8,13 +12,13 @@
 body {
   background-color: #bae2fc;
   font-size: 18px;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
 }
 
 .main-container {
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #dbdee2;
+  background-color: rgb(219, 222, 226);
   margin-top: 0;
   padding-top: 0;
   min-height: 100vh;
@@ -44,18 +48,19 @@ body {
 
 /* Header + Nav */
 .main-header {
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    text-decoration: none;
+    color: black;
+  }
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 5px;
   margin-bottom: 3px;
-}
-.main-header a:link,
-.main-header a:visited,
-.main-header a:hover,
-.main-header a:active {
-  text-decoration: none;
-  color: black;
 }
 
 h1 {
@@ -67,53 +72,61 @@ h1 {
 .search-form {
   display: flex;
   align-items: center;
-}
-.search-form input {
-  margin-right: 0px;
-  padding: 2px;
-  padding-left: 16px;
-  width: 600px;
-  height: 32px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border: 1px solid rgba(0, 0, 0, 0.24);
-  border-right: none;
-}
-.search-form #search-input:focus {
-  outline: none;
-}
-.search-form .search-btn {
-  width: 50px;
-  height: 32px;
-  border: 1px solid rgba(0, 0, 0, 0.281);
-  background-color: #dbdee2;
+
+  input {
+    margin-right: 0px;
+    padding: 2px;
+    padding-left: 16px;
+    width: 600px;
+    height: 32px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    border-right: none;
+  }
+
+  #search-input:focus {
+    outline: none;
+  }
+
+  .search-btn {
+    width: 50px;
+    height: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.281);
+    background-color: #dbdee2;
+  }
 }
 
 .account {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.account a {
-  text-decoration: none;
-}
-.account a:link,
-.account a:visited {
-  color: black;
-}
-.account a:hover,
-.account a:active {
-  color: #3d3b3b;
-}
-.account .account-info {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 12px;
-  margin: 0 6px;
-}
-.account .account-info p {
-  margin: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:link,
+  a:visited {
+    color: black;
+  }
+
+  a:hover,
+  a:active {
+    color: rgb(61, 59, 59);
+  }
+
+  .account-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 12px;
+    margin: 0 6px;
+
+    p {
+      margin: 0;
+    }
+  }
 }
 
 .account:hover {
@@ -121,7 +134,7 @@ h1 {
 }
 
 .nav {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 2px;
 }
 
@@ -132,7 +145,7 @@ h1 {
 
 .nav-link:visited,
 .nav-link:link {
-  color: black;
+  color: rgb(0, 0, 0);
 }
 
 .nav-link:hover,
@@ -140,8 +153,8 @@ h1 {
   color: white;
   background-color: black;
 }
-
 /* Header + Nav End */
+
 /* Listings (not one listing!) */
 .listing-container {
   position: relative;
@@ -174,7 +187,7 @@ h1 {
 }
 
 .listing-title > a {
-  color: #00275a;
+  color: rgb(0, 39, 90);
 }
 
 .listing-title > a:hover {
@@ -183,7 +196,7 @@ h1 {
 
 .listing-price {
   font-size: 22px;
-  color: #000000;
+  color: $price-color;
   margin-bottom: 10px;
   margin-left: 10px;
   font-weight: 600;
@@ -198,14 +211,14 @@ h1 {
 }
 
 .listed-by > a {
-  color: #00275a;
+  color: rgb(0, 39, 90);
 }
 
 .listed-by > a:hover {
   text-decoration: underline;
 }
-
 /* Listings (not one listing!) End*/
+
 /* Listing */
 .btn-close-listing {
   display: block;
@@ -216,18 +229,20 @@ h1 {
 }
 
 .listing-basic-info {
-  border: 1px solid #cec9c9;
+  border: 1px solid rgb(206, 201, 201);
   border-radius: 1px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 15px;
-}
-.listing-basic-info .closed-price {
-  color: #b9bbbc;
-}
-.listing-basic-info p {
-  font-size: 14px;
-  margin-bottom: 0;
-  margin-left: 5px;
+
+  .closed-price {
+    color: #b9bbbc;
+  }
+
+  p {
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-left: 5px;
+  }
 }
 
 .watchlist-form {
@@ -286,8 +301,8 @@ h1 {
   width: 100%;
   height: 500px;
   padding: 0px 30px;
-  background-color: white;
-  border: 1px solid #cec9c9;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(206, 201, 201);
 }
 
 .img-listing-large {
@@ -345,6 +360,8 @@ h1 {
   padding: 20px;
   margin-bottom: 5px;
   background-color: #dbdee2;
+  // border-top: 1px solid rgb(199, 194, 194);
+  // border-bottom: 1px solid rgb(199, 194, 194);
 }
 
 .comment-info {
@@ -355,8 +372,9 @@ h1 {
 .comment p {
   margin: 0;
 }
-
 /* Listing End */
+
+// Categories
 .categories-container {
   display: flex;
   justify-content: space-between;
@@ -369,7 +387,9 @@ h1 {
 .category .btn {
   width: 100%;
 }
+// Categories End
 
+// Create listing
 .create-listing {
   width: 50%;
   margin: 30px auto;
@@ -378,45 +398,56 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.create-listing textarea {
-  width: 280px;
-  height: 150px;
-}
-.create-listing label,
-.create-listing select {
-  display: block;
-}
-.create-listing input,
-.create-listing select {
-  width: 280px;
-  height: 31px;
-}
-.create-listing select {
-  -moz-text-align-last: center;
-       text-align-last: center;
-  margin-bottom: 10px;
-}
+  // border: 1px solid black;
 
+  textarea {
+    width: 280px;
+    height: 150px;
+  }
+
+  label,
+  select {
+    display: block;
+  }
+
+  input,
+  select {
+    width: 280px;
+    height: 31px;
+  }
+
+  select {
+    text-align-last: center;
+    margin-bottom: 10px;
+  }
+}
+// Create listing End
+
+// Footer
 .footer-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100px;
   background-color: #e8e8e8;
-}
-.footer-container p {
-  color: #666666;
-  margin-bottom: 0;
-}
 
+  p {
+    color: #666666;
+    margin-bottom: 0;
+  }
+}
+// Footer End
+
+// Pagination
 .pagination {
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
-}
-.pagination a {
-  text-decoration: none !important;
+
+  a {
+    text-decoration: none !important;
+    // color: chocolate !important;
+  }
 }
 
 .btn-pagination {
@@ -435,21 +466,24 @@ h1 {
 
 .btn-pagination#current {
   border: 1px solid rgba(88, 86, 86, 0.521);
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
 .btn-pagination:hover,
 .btn-pagination:active {
-  border: 1px solid #d1cbcb;
+  border: 1px solid rgb(209, 203, 203);
   border-radius: 20%;
-  background-color: #c7c0c0;
+  background-color: rgb(199, 192, 192);
 }
+// Pagination End
 
+// Profile page
 .profile-btns {
   display: flex;
   flex-direction: column;
+
+  button {
+    width: 200px;
+    margin-bottom: 5px;
+  }
 }
-.profile-btns button {
-  width: 200px;
-  margin-bottom: 5px;
-}/*# sourceMappingURL=styles.css.map */
