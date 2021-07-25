@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get(
     'SECRET_KEY') or 'a38212c6690ca29bba38a1f1e4baf77322811ccdafa2f2ee'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG_VALUE') == 'True'
 
 ALLOWED_HOSTS = ['auctions-site-django.herokuapp.com']
 
