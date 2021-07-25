@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+
+# For heroku deploy
 import os
 import django_heroku
 
@@ -23,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-kbpikwm2i16aei82pqw+6#e4#a*pa91xdiu!6%bx_7fokfym3l'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY') or 'a38212c6690ca29bba38a1f1e4baf77322811ccdafa2f2ee'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -134,4 +137,5 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# For heroku deploy
 django_heroku.settings(locals())
