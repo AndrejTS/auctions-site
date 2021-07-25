@@ -190,7 +190,8 @@ def categories(request):
 
 
 def category(request, category_name):
-    listings = Listing.objects.filter(category=category_name).all()
+    listings = Listing.objects.filter(
+        category=category_name).filter(closed=False).all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': category_name,
