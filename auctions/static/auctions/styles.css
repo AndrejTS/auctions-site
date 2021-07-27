@@ -6,24 +6,20 @@
 }
 
 body {
-  background-color: #bae2fc;
+  background-color: rgba(219, 222, 226, 0.651);
   font-size: 18px;
   font-family: "Exo 2", sans-serif;
 }
 
+.header-nav-background {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(22, 22, 22, 0.459);
+}
+
 .main-container {
-  padding-left: 20px;
-  padding-right: 20px;
-  background-color: #dbdee2;
   margin-top: 0;
   padding-top: 0;
   min-height: 100vh;
-  border-left: 1px solid rgba(27, 29, 27, 0.178);
-  border-right: 1px solid rgba(27, 29, 27, 0.178);
-}
-
-#main {
-  min-height: 100%;
 }
 
 #main a {
@@ -38,7 +34,7 @@ body {
 
 .page-header {
   font-size: 24px;
-  margin: 10px;
+  margin-top: 10px;
   font-weight: 600;
 }
 
@@ -89,40 +85,54 @@ h1 {
   background-color: #dbdee2;
 }
 
-.account {
+.account-menu {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.account a {
+.account-menu .account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.account-menu a {
   text-decoration: none;
 }
-.account a:link,
-.account a:visited {
+.account-menu a:link,
+.account-menu a:visited {
   color: black;
 }
-.account a:hover,
-.account a:active {
+.account-menu a:hover,
+.account-menu a:active {
   color: #3d3b3b;
 }
-.account .account-info {
+.account-menu .account-info {
   display: flex;
   justify-content: center;
   flex-direction: column;
   font-size: 12px;
   margin: 0 6px;
 }
-.account .account-info p {
+.account-menu .account-info p {
   margin: 0;
 }
 
-.account:hover {
-  color: #185adb;
+#account-btn {
+  width: 36px;
+  height: 36px;
+}
+
+#nav-btn {
+  display: none;
+  position: relative;
+  margin-left: 12px;
+  z-index: 200;
 }
 
 .nav {
-  background-color: white;
-  border-radius: 2px;
+  background-color: rgba(219, 222, 226, 0.651);
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
 }
 
 .nav-link {
@@ -137,10 +147,131 @@ h1 {
 
 .nav-link:hover,
 .nav-link:active {
-  color: white;
-  background-color: black;
+  text-decoration: underline;
 }
 
+#nav-mobile {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 100;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#nav-mobile ul {
+  padding-left: 40px !important;
+  list-style-type: none;
+  /* Remove bullets */
+  padding: 0;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margins */
+}
+#nav-mobile ul li {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+#nav-mobile ul li a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+#nav-mobile.nav--active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nav--active .nav__link {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 1199px) {
+  h1 {
+    font-weight: 600;
+    padding: 5px 10px;
+    margin-bottom: 0;
+  }
+
+  .search-form input {
+    width: 400px;
+    height: 32px;
+  }
+  .search-form .search-btn {
+    width: 50px;
+    height: 32px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  h1 {
+    font-weight: 600;
+    padding: 5px 10px;
+    margin-bottom: 0;
+  }
+
+  .search-form input {
+    width: 330px;
+    height: 32px;
+  }
+  .search-form .search-btn {
+    width: 50px;
+    height: 32px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .search-form {
+    width: 100%;
+    order: 3;
+  }
+  .search-form input {
+    width: 100%;
+    height: 32px;
+  }
+  .search-form .search-btn {
+    width: 50px;
+    height: 32px;
+  }
+
+  .account-menu .account-info {
+    display: none;
+  }
+
+  #account-btn {
+    width: 25px;
+    height: 25px;
+  }
+
+  #nav-btn {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+  }
+}
 /* Header + Nav End */
 /* Listings (not one listing!) */
 .listing-container {
@@ -167,6 +298,8 @@ h1 {
 }
 
 .listing-title {
+  height: 30px;
+  overflow: hidden;
   font-size: 20px;
   margin-left: 10px;
   margin-bottom: 0;
@@ -182,7 +315,7 @@ h1 {
 }
 
 .listing-price {
-  font-size: 22px;
+  font-size: 16px;
   color: #000000;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -205,6 +338,34 @@ h1 {
   text-decoration: underline;
 }
 
+@media only screen and (max-width: 991px) {
+  .img-container {
+    height: 200px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .img-container {
+    height: 170px;
+  }
+
+  .listing-title {
+    font-size: 15px;
+  }
+
+  .listed-by {
+    display: none;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .img-container {
+    height: 150px;
+  }
+
+  .listing-price {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+}
 /* Listings (not one listing!) End*/
 /* Listing */
 .btn-close-listing {
@@ -283,8 +444,8 @@ h1 {
 .img-listing-large-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 500px;
   padding: 0px 30px;
   background-color: white;
   border: 1px solid #cec9c9;
@@ -292,7 +453,7 @@ h1 {
 
 .img-listing-large {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 500px;
 }
 
 .product-tabs {
@@ -356,6 +517,11 @@ h1 {
   margin: 0;
 }
 
+@media only screen and (max-width: 575px) {
+  .img-listing-large {
+    max-height: 250px;
+  }
+}
 /* Listing End */
 .categories-container {
   display: flex;
@@ -396,18 +562,6 @@ h1 {
   -moz-text-align-last: center;
        text-align-last: center;
   margin-bottom: 10px;
-}
-
-.footer-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  background-color: #e8e8e8;
-}
-.footer-container p {
-  color: #666666;
-  margin-bottom: 0;
 }
 
 .pagination {
@@ -452,4 +606,17 @@ h1 {
 .profile-btns button {
   width: 200px;
   margin-bottom: 5px;
+}
+
+.footer-container {
+  background-color: #cac5c5ab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+}
+.footer-container p {
+  color: #666666;
+  margin-bottom: 0;
 }/*# sourceMappingURL=styles.css.map */
