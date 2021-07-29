@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 1px solid red !important;
 }
 
 .lock-scroll {
@@ -10,6 +11,7 @@
 }
 
 body {
+  border: 5px solid red;
   background-color: rgba(219, 222, 226, 0.651);
   font-size: 18px;
   font-family: "Exo 2", sans-serif;
@@ -287,7 +289,7 @@ h1 {
   position: relative;
   padding: 5px;
   border: 2px solid #e5e5e5;
-  border-radius: 8px;
+  border-radius: 2px;
   margin-bottom: 24px;
   background-color: #fff;
 }
