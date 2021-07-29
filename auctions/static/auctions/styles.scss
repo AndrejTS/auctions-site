@@ -9,27 +9,25 @@ $anchor-main-hover-color: rgb(255, 201, 71);
   box-sizing: border-box;
 }
 
+.lock-scroll {
+  overflow: hidden;
+}
+
 body {
-  // background-color: #bae2fc;
   background-color: rgba(219, 222, 226, 0.651);
   font-size: 18px;
   font-family: 'Exo 2', sans-serif;
 }
 
-.header-nav-background {
+#header-nav-wrapper {
   background-color: #ffffff;
   border-bottom: 1px solid rgba(22, 22, 22, 0.459);
 }
 
 .main-container {
-  // padding-left: 20px;
-  // padding-right: 20px;
-  // background-color: rgb(219, 222, 226);
   margin-top: 0;
   padding-top: 0;
   min-height: 100vh;
-  // border-left: 1px solid rgba(27, 29, 27, 0.178);
-  // border-right: 1px solid rgba(27, 29, 27, 0.178);
 }
 
 #main a {
@@ -48,13 +46,19 @@ body {
   font-weight: 600;
 }
 
+@media only screen and (max-width: 575px) {
+  .page-header {
+    font-size: 16px;
+  }
+}
+
 /* Header + Nav */
 .main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 
   a:link,
   a:visited,
@@ -66,6 +70,7 @@ body {
 }
 
 h1 {
+  letter-spacing: 1px;
   font-weight: 600;
   padding: 5px 10px;
   margin-bottom: 0;
@@ -81,10 +86,15 @@ h1 {
     padding-left: 16px;
     width: 600px;
     height: 32px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    // border-top-right-radius: 0;
+    // border-bottom-right-radius: 0;
     border: 1px solid rgba(0, 0, 0, 0.24);
     border-right: none;
+  }
+
+  #search-input {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
   }
 
   #search-input:focus {
@@ -95,6 +105,8 @@ h1 {
     width: 50px;
     height: 32px;
     border: 1px solid rgba(0, 0, 0, 0.281);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     background-color: #dbdee2;
   }
 }
@@ -146,7 +158,7 @@ h1 {
   display: none;
   position: relative;
   margin-left: 12px;
-  z-index: 200;
+  z-index: 2;
 }
 
 .nav {
@@ -177,10 +189,10 @@ h1 {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgb(0, 0, 0);
-  z-index: 100;
+  z-index: 1;
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s;
   display: flex;
@@ -257,21 +269,15 @@ h1 {
 }
 
 @media only screen and (max-width: 991px) {
-  .container {
-    width: 100%;
-    max-width: 100%;
-    padding: 10px;
-  }
-
   h1 {
     font-weight: 600;
-    padding: 5px 10px;
+    padding: 5px 0px;
     margin-bottom: 0;
   }
 
   .search-form {
     input {
-      width: 330px;
+      width: 295px;
       height: 32px;
     }
 
@@ -283,9 +289,10 @@ h1 {
 }
 
 @media only screen and (max-width: 767px) {
-  .container {
-    width: 100%;
-    max-width: 100%;
+  #header-nav-wrapper {
+    position: sticky;
+    z-index: 1;
+    transition: 0.5s;
   }
 
   .main-header {
@@ -355,7 +362,7 @@ h1 {
 }
 
 .listing-title {
-  height: 30px;
+  height: 22px;
   overflow: hidden;
   font-size: 20px;
   margin-left: 10px;
@@ -402,6 +409,14 @@ h1 {
 }
 
 @media only screen and (max-width: 767px) {
+  .col-md-4 {
+    padding: 2px;
+  }
+
+  .listing-container {
+    margin-bottom: 0;
+  }
+
   .img-container {
     height: 170px;
   }
@@ -416,6 +431,14 @@ h1 {
 }
 
 @media only screen and (max-width: 575px) {
+  .col-6 {
+    padding: 0;
+  }
+
+  .listing-container {
+    margin-bottom: 0;
+  }
+
   .img-container {
     height: 150px;
   }
@@ -664,6 +687,11 @@ h1 {
   background-color: rgba(199, 192, 192, 0);
 }
 
+.btn-pagination svg {
+  width: 16px;
+  height: 16px;
+}
+
 .btn-pagination#current {
   border: 1px solid rgba(88, 86, 86, 0.521);
   background-color: rgb(255, 255, 255);
@@ -674,6 +702,26 @@ h1 {
   border: 1px solid rgb(209, 203, 203);
   border-radius: 20%;
   background-color: rgb(199, 192, 192);
+}
+
+@media only screen and (max-width: 575px) {
+  .pagination {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  .btn-pagination {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .btn-pagination svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 // Pagination End
 
@@ -702,6 +750,12 @@ h1 {
   p {
     color: #666666;
     margin-bottom: 0;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  footer p {
+    font-size: 10px;
   }
 }
 // Footer End

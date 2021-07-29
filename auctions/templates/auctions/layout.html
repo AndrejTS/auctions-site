@@ -13,35 +13,34 @@
     {% endblock %}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const headerAndNavbar = document.getElementById('header-nav-wrapper');
             const toggleButton = document.getElementById('nav-btn');
-            const navbar = document.getElementById('nav-mobile');
+            const navbarMobile = document.getElementById('nav-mobile');
+            const body = document.getElementsByTagName('body')[0];
 
             toggleButton.addEventListener('click', () => {
-                navbar.classList.toggle('nav--active');
+                navbarMobile.classList.toggle('nav--active');
+                body.classList.toggle('lock-scroll');
             })
+
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop) {
+                    headerAndNavbar.style.top = '-200px';
+                } else {
+                    headerAndNavbar.style.top = '0';
+                }
+                lastScrollTop = scrollTop;
+            });
         }); 
     </script>
 </head>
 
 <body>
-    {% comment %} Mobile nav {% endcomment %}
-    <nav id="nav-mobile">
-        <ul class="nav__list">
-            <li class="nav__item"><a class="nav__link" href="{% url 'index' %}">Active Listings</a></li>
-            <hr>
-            <li class="nav__item"><a class="nav__link" href="{% url 'categories' %}">Categories</a></li>
-            <hr>
-            <li class="nav__item"><a class="nav__link" href="{% url 'watchlist' %}">Watchlist</a></li>
-            <hr>
-            <li class="nav__item"><a class="nav__link" href="{% url 'create_listing' %}">Create Listing</a></li>
-        </ul>
-    </nav>
-
-
-    <div class='header-nav-background'>
-        <div class='container'> 
+    <div id='header-nav-wrapper'>
+        <div class='container-md'> 
             <div class='main-header'>
-
                 <a href="{% url 'index' %}"><h1>AUCTIONS</h1></a>
                 <form class='search-form' action="{% url 'search' %}" method="POST">
                     {% csrf_token %}
@@ -79,7 +78,6 @@
                     </svg>
                 </div>
             </div>
-
                     
             <ul id='navbar' class="nav">
                 <li class="nav-item">
@@ -97,11 +95,25 @@
                     </li>
                 {% endif %}
             </ul>
+
+            {% comment %} Mobile nav {% endcomment %}
+            <nav id="nav-mobile">
+                <ul class="nav__list">
+                    <li class="nav__item"><a class="nav__link" href="{% url 'index' %}">Active Listings</a></li>
+                    <hr>
+                    <li class="nav__item"><a class="nav__link" href="{% url 'categories' %}">Categories</a></li>
+                    <hr>
+                    {% if user.is_authenticated %}
+                        <li class="nav__item"><a class="nav__link" href="{% url 'watchlist' %}">Watchlist</a></li>
+                        <hr>
+                        <li class="nav__item"><a class="nav__link" href="{% url 'create_listing' %}">Create Listing</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
     </div>
 
-
-    <div class='container main-container'> 
+    <div class='container-md main-container'> 
         <section id='main'>
             {% block body %}
             {% endblock %}
