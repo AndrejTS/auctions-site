@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 1px solid red !important;
 }
 
 .lock-scroll {
@@ -11,7 +10,6 @@
 }
 
 body {
-  border: 5px solid red;
   background-color: rgba(219, 222, 226, 0.651);
   font-size: 18px;
   font-family: "Exo 2", sans-serif;
@@ -167,8 +165,9 @@ h1 {
 }
 
 #nav-mobile {
+  display: none;
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
@@ -177,18 +176,12 @@ h1 {
   z-index: 1;
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s;
-  display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 #nav-mobile ul {
   padding-left: 40px !important;
   list-style-type: none;
-  /* Remove bullets */
-  padding: 0;
-  /* Remove padding */
-  margin: 0;
-  /* Remove margins */
 }
 #nav-mobile ul li {
   padding: 5px;
@@ -196,12 +189,18 @@ h1 {
 }
 #nav-mobile ul li a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.925);
 }
 
 #nav-mobile.nav--active {
   visibility: visible;
   opacity: 1;
+}
+
+.nav__link {
+  opacity: 0;
+  transition: opacity 300ms;
+  transition-delay: 300ms;
 }
 
 .nav--active .nav__link {
@@ -281,6 +280,10 @@ h1 {
 
   .nav {
     display: none;
+  }
+
+  #nav-mobile {
+    display: flex;
   }
 }
 /* Header + Nav End */
