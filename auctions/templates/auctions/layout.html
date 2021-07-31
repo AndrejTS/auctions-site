@@ -14,11 +14,12 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const headerAndNavbar = document.getElementById('header-nav-wrapper');
-            const toggleButton = document.getElementById('nav-btn');
+            const toggleButton = document.getElementById('nav-mobile-btn');
             const navbarMobile = document.getElementById('nav-mobile');
             const body = document.getElementsByTagName('body')[0];
 
             toggleButton.addEventListener('click', () => {
+                toggleButton.classList.toggle('nav--active');
                 navbarMobile.classList.toggle('nav--active');
                 body.classList.toggle('lock-scroll');
             })
@@ -32,7 +33,7 @@
                     headerAndNavbar.style.top = '0';
                 }
                 lastScrollTop = scrollTop;
-            });
+            });            
         }); 
     </script>
 </head>
@@ -53,12 +54,12 @@
                 </form>
                 
                 <div class='account-menu'>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'profile' %}">
-                    {% else %}
-                        <a href="{% url 'login' %}">
-                    {% endif %}
-                            <div class='account'>
+                    <div class='account'>
+                        {% if user.is_authenticated %}
+                            <a class='account-control' href="{% url 'profile' %}">
+                        {% else %}
+                            <a class='account-control' href="{% url 'login' %}">
+                        {% endif %}
                                 <svg id='account-btn' xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -71,9 +72,21 @@
                                         <p>Log In</p>
                                     {% endif %} 
                                 </div>
+                            </a>
+
+                        {% if user.is_authenticated %}
+                            <div class='menu'>
+                                <ul>
+                                    <li><a href="{% url 'i_am_bidding' %}">I am bidding</a></li>
+                                    <li><a href="{% url 'my_wins' %}">Won auctions</a></li>
+                                    <li><a href="{% url 'dont_won' %}">Not won</a></li>
+                                    <li><a href="{% url 'my_listings' %}">Your listings</a></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
                             </div>
-                        </a>
-                    <svg id='nav-btn' xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        {% endif %} 
+                    </div>
+                    <svg id='nav-mobile-btn' xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                     </svg>
                 </div>
@@ -90,10 +103,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
-                    </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
+                </li>
             </ul>
 
             {% comment %} Mobile nav {% endcomment %}

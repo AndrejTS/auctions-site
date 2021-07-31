@@ -49,11 +49,10 @@ body {
 }
 /* Header + Nav */
 .main-header {
+  height: 68px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 5px;
-  margin-bottom: 5px;
 }
 .main-header a:link,
 .main-header a:visited,
@@ -77,7 +76,7 @@ h1 {
 .search-form input {
   margin-right: 0px;
   padding: 2px;
-  padding-left: 16px;
+  padding-left: 8px;
   width: 600px;
   height: 32px;
   border: 1px solid rgba(0, 0, 0, 0.24);
@@ -99,15 +98,54 @@ h1 {
   background-color: #dbdee2;
 }
 
-.account-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .account-menu .account {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 68px;
+  position: relative;
+}
+.account-menu .account a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.account-menu .account .menu {
+  z-index: 1;
+  position: absolute;
+  top: 62px;
+  right: 0;
+  padding: 10px 20px;
+  background-color: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.856);
+  border-radius: 5px;
+  width: 250px;
+  height: 300px;
+  transition: 0.2s;
+  visibility: hidden;
+  opacity: 0;
+}
+.account-menu .account .menu ul {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.account-menu .account .menu ul li {
+  list-style: none;
+}
+.account-menu .account .menu ul li a:hover {
+  text-decoration: underline;
+}
+.account-menu .account:hover .account-control {
+  color: #1640ca;
+}
+.account-menu .account:hover .menu {
+  visibility: visible;
+  opacity: 1;
 }
 .account-menu a {
   text-decoration: none;
@@ -115,10 +153,6 @@ h1 {
 .account-menu a:link,
 .account-menu a:visited {
   color: black;
-}
-.account-menu a:hover,
-.account-menu a:active {
-  color: #3d3b3b;
 }
 .account-menu .account-info {
   display: flex;
@@ -134,13 +168,6 @@ h1 {
 #account-btn {
   width: 36px;
   height: 36px;
-}
-
-#nav-btn {
-  display: none;
-  position: relative;
-  margin-left: 12px;
-  z-index: 2;
 }
 
 .nav {
@@ -162,6 +189,18 @@ h1 {
 .nav-link:hover,
 .nav-link:active {
   text-decoration: underline;
+}
+
+#nav-mobile-btn {
+  display: none;
+  position: relative;
+  margin-left: 12px;
+  z-index: 2;
+  transition: 0.8s;
+}
+
+#nav-mobile-btn.nav--active {
+  color: rgba(255, 255, 255, 0.925);
 }
 
 #nav-mobile {
@@ -240,6 +279,25 @@ h1 {
   }
 }
 @media only screen and (max-width: 767px) {
+  .main-header {
+    margin-bottom: 5px;
+    height: auto;
+  }
+  .main-header .account-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-header .account-menu .account:hover .account-control {
+    color: inherit;
+  }
+  .main-header .account {
+    height: auto;
+  }
+  .main-header .account .menu {
+    display: none;
+  }
+
   #header-nav-wrapper {
     position: sticky;
     z-index: 1;
@@ -274,7 +332,7 @@ h1 {
     height: 25px;
   }
 
-  #nav-btn {
+  #nav-mobile-btn {
     display: block;
   }
 
