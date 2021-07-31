@@ -18,7 +18,7 @@ def paginator_helper(request, listings):
 
 
 def index(request):
-    listings = Listing.objects.filter(closed=False).all()
+    listings = Listing.objects.filter(closed=False).order_by('id').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': 'Active Listings',
