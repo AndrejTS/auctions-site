@@ -10,7 +10,7 @@ class Listing(models.Model):
     winner = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name='wins', blank=True)
     closed = models.BooleanField(default=False)
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=100)
     description = models.CharField(max_length=300, blank=True)
     starting_price = models.PositiveIntegerField()
     last_bid = models.PositiveIntegerField(null=True, blank=True)
