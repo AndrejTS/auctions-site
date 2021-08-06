@@ -2,78 +2,94 @@
 
 {% block body %}
 
+<div class='container-lg main-container'> 
 
-<h2 class='page-header'>{{ title }}</h2>
-
-
-<div class='row'>
-    {% for listing in listings_page %}
-        <div class='col-lg-3 col-md-4 col-6'>
-            <div class='listing-container'>
-                <a href={% url 'listing' listing.id %}>
-                    <div class='img-container'>
-                        {% if listing.image_url %}
-                            <img class='' src="{{ listing.image_url }}" alt="{{ listing.title }}">
-                        {% else %}
-                            <img class='' src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg">
-                        {% endif %}
-                    </div>
-                </a>
-                
-                <a href={% url 'listing' listing.id %}>
-                    <h3>{{ listing.title }}</h3>
-                </a>
-
-                <p class='listing-price'>${{ listing.current_price }}</p>
-                <p class='listed-by'>Listed by: <a href="{% url 'user_listings' listing.owner %}">{{ listing.owner }}</a></p>
-            </div>
-        </div>
-    {% endfor %}
-
-    {% if listings_page.has_other_pages %}
-        <div class='pagination'>
-            {% if listings_page.has_previous %}
-                <a class="btn-pagination" href="?page=1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                    </svg>
-                </a>
-                <a class="btn-pagination" href="?page={{ listings_page.previous_page_number }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                    </svg>  
-                </a>
-            {% endif %}
-
-            {% for num in listings_page.paginator.page_range %}
-                {% if listings_page.number == num %}
-                    <a id='current' class="btn-pagination" href="?page={{ num }}">
-                        <div>{{ num }}</div>
-                    </a>
-                {% elif num > listings_page.number|add:'-3' and num < listings_page.number|add:'3' %}
-                    <a class="btn-pagination" href="?page={{ num }}">
-                        <div>{{ num }}</div>
-                    </a>
-                {% endif %}
-            {% endfor %}
-
-            {% if listings_page.has_next %}
-                <a class="btn-pagination" href="?page={{ listings_page.next_page_number }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                    </svg>
-                </a>
-                <a class="btn-pagination" href="?page={{ listings_page.paginator.num_pages }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-                    </svg>
-                </a>
-            {% endif %}
-        </div>
+    {% if breadcrumbs %}
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a class='breadcrumbs__link' href={% url 'index' %}>Auctions</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a class='breadcrumbs__link breadcrumbs__link--active'>{{ title }}</a>
+            </li>
+        </ul>
     {% endif %}
 
+    <h2 class='page-header'>{{ title }}</h2>
+
+    <div class='row'>
+        {% for listing in listings_page %}
+            <div class='col-lg-3 col-md-4 col-6'>
+                <div class='listing-container'>
+                    <a href={% url 'listing' listing.id %}>
+                        <div class='img-container'>
+                            {% if listing.image_url %}
+                                <img class='' src="{{ listing.image_url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <img class='' src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg">
+                            {% endif %}
+                        </div>
+                    </a>
+                    
+                    <a href={% url 'listing' listing.id %}>
+                        <h3>{{ listing.title }}</h3>
+                    </a>
+
+                    <p class='listing-price'>${{ listing.current_price }}</p>
+                    <p class='listed-by'>Listed by: <a href="{% url 'user_listings' listing.owner %}">{{ listing.owner }}</a></p>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if listings_page.has_other_pages %}
+            <div class='pagination'>
+                <div class='prev-pages'>
+                    {% if listings_page.has_previous %}
+                        <a class="btn-pagination" href="?page=1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                        </a>
+                        <a class="btn-pagination" href="?page={{ listings_page.previous_page_number }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                            </svg>  
+                        </a>
+                    {% endif %}
+
+                    {% for num in listings_page.paginator.page_range %}
+                        {% if listings_page.number == num %}
+                            </div>
+                            <a id='current' class="btn-pagination" href="?page={{ num }}">
+                                <div>{{ num }}</div>
+                            </a>
+                            <div class='next-pages'>
+                        {% elif num > listings_page.number|add:'-3' and num < listings_page.number|add:'3' %}
+                            <a class="btn-pagination" href="?page={{ num }}">
+                                <div>{{ num }}</div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if listings_page.has_next %}
+                        <a class="btn-pagination" href="?page={{ listings_page.next_page_number }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </a>
+                        <a class="btn-pagination" href="?page={{ listings_page.paginator.num_pages }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
 </div>
 
 

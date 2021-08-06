@@ -12,7 +12,6 @@
 body {
   background-color: rgba(219, 222, 226, 0.651);
   font-size: 18px;
-  font-family: "Exo 2", sans-serif;
 }
 
 #header-nav-wrapper {
@@ -37,8 +36,9 @@ body {
 }
 
 .page-header {
-  font-size: 24px;
+  font-size: 32px;
   margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 
@@ -61,8 +61,7 @@ body {
   text-decoration: none;
   color: black;
 }
-
-h1 {
+.main-header h1 {
   letter-spacing: 1px;
   font-weight: 600;
   padding: 5px 10px;
@@ -72,13 +71,15 @@ h1 {
 .search-form {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .search-form input {
   margin-right: 0px;
   padding: 2px;
   padding-left: 8px;
-  width: 600px;
-  height: 32px;
+  width: 500px;
+  max-width: 500px;
+  height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.24);
   border-right: none;
 }
@@ -91,103 +92,153 @@ h1 {
 }
 .search-form .search-btn {
   width: 50px;
-  height: 32px;
+  height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.281);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: #dbdee2;
 }
 
-.account-menu .account {
+.user-actions {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.user-actions #sell-btn {
+  margin-right: 16px;
+  width: 126px;
+  height: 36px;
+  background-color: #f0f0f0;
+  border: 1px solid rgba(0, 0, 0, 0.226);
+  border-radius: 2px;
+  color: black;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-actions .account-menu .account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 126px;
   height: 68px;
   position: relative;
 }
-.account-menu .account a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.user-actions .account-menu .account .account-control {
+  color: rgba(41, 41, 41, 0.986);
 }
-.account-menu .account .menu {
+.user-actions .account-menu .account .account-control #account-btn {
+  width: 36px;
+  height: 36px;
+}
+.user-actions .account-menu .account a {
+  display: flex;
+  justify-content: flex-start;
+}
+.user-actions .account-menu .account .menu {
   z-index: 1;
   position: absolute;
-  top: 62px;
+  top: 68px;
   right: 0;
-  padding: 10px 20px;
-  background-color: #fafafa;
-  border: 1px solid rgba(0, 0, 0, 0.856);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.308);
+  box-shadow: 0 2px 5px 0 rgba(32, 31, 31, 0.671);
   border-radius: 5px;
   width: 250px;
-  height: 300px;
-  transition: 0.2s;
+  transition: 0.1s;
   visibility: hidden;
   opacity: 0;
 }
-.account-menu .account .menu ul {
+.user-actions .account-menu .account .menu ul {
   height: 100%;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  justify-content: flex-start;
 }
-.account-menu .account .menu ul li {
+.user-actions .account-menu .account .menu ul li {
+  width: 100%;
   list-style: none;
+  border-bottom: 1px solid rgba(73, 72, 72, 0.199);
 }
-.account-menu .account .menu ul li a:hover {
-  text-decoration: underline;
+.user-actions .account-menu .account .menu ul li a {
+  font-size: 16px;
 }
-.account-menu .account:hover .account-control {
-  color: #1640ca;
+.user-actions .account-menu .account .menu ul li:last-child {
+  border-bottom: none;
 }
-.account-menu .account:hover .menu {
+.user-actions .account-menu .account .menu ul li:hover {
+  background-color: rgba(201, 194, 194, 0.144);
+}
+.user-actions .account-menu .account .menu hr {
+  margin: 8px;
+}
+.user-actions .account-menu .account .menu #logout-btn {
+  height: 30px;
+  background-color: #5c5116;
+  border: 1px solid rgba(0, 0, 0, 0.514);
+  border-radius: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  padding: 2px;
+}
+.user-actions .account-menu .account .menu #logout-btn span {
+  font-size: 16px;
+  color: white;
+}
+.user-actions .account-menu .account .menu #logout-btn svg {
+  margin-left: 7px;
+  color: white;
+}
+.user-actions .account-menu .account:hover .account-control {
+  color: rgba(19, 37, 90, 0.986);
+}
+.user-actions .account-menu .account:hover .menu {
   visibility: visible;
   opacity: 1;
 }
-.account-menu a {
+.user-actions .account-menu a {
   text-decoration: none;
 }
-.account-menu a:link,
-.account-menu a:visited {
+.user-actions .account-menu a:link,
+.user-actions .account-menu a:visited {
   color: black;
 }
-.account-menu .account-info {
+.user-actions .account-menu .account-info {
   display: flex;
   justify-content: center;
   flex-direction: column;
   font-size: 12px;
   margin: 0 6px;
 }
-.account-menu .account-info p {
+.user-actions .account-menu .account-info p {
+  max-width: 80px;
   margin: 0;
-}
-
-#account-btn {
-  width: 36px;
-  height: 36px;
+  overflow: hidden;
 }
 
 .nav {
+  justify-content: space-around;
   background-color: rgba(219, 222, 226, 0.651);
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
 }
-
-.nav-link {
+.nav .nav-link {
   font-weight: 600;
   font-size: 14px;
 }
-
-.nav-link:visited,
-.nav-link:link {
+.nav .nav-link:visited,
+.nav .nav-link:link {
   color: black;
 }
-
-.nav-link:hover,
-.nav-link:active {
+.nav .nav-link:hover,
+.nav .nav-link:active {
   text-decoration: underline;
 }
 
@@ -196,7 +247,8 @@ h1 {
   position: relative;
   margin-left: 12px;
   z-index: 2;
-  transition: 0.8s;
+  color: black;
+  transition: color 0.3s;
 }
 
 #nav-mobile-btn.nav--active {
@@ -218,15 +270,24 @@ h1 {
   justify-content: flex-start;
   align-items: center;
 }
-#nav-mobile ul {
+#nav-mobile .nav__list {
   padding-left: 40px !important;
+  padding-right: 40px !important;
   list-style-type: none;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-#nav-mobile ul li {
-  padding: 5px;
-  margin-bottom: 10px;
+#nav-mobile .nav__list .nav__item {
+  padding: 10px;
+  border-bottom: 1px solid #1b1b1b;
+  opacity: 0;
+  transition: opacity 300ms;
+  transition-delay: 300ms;
 }
-#nav-mobile ul li a {
+#nav-mobile .nav__list .nav__item .nav__link {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.925);
 }
@@ -235,117 +296,122 @@ h1 {
   visibility: visible;
   opacity: 1;
 }
-
-.nav__link {
-  opacity: 0;
-  transition: opacity 300ms;
-  transition-delay: 300ms;
-}
-
-.nav--active .nav__link {
+#nav-mobile.nav--active .nav__list .nav__item {
   opacity: 1;
 }
 
+@media only screen and (max-width: 1399px) {
+  .user-actions #sell-btn {
+    width: 60px;
+  }
+}
 @media only screen and (max-width: 1199px) {
-  h1 {
-    font-weight: 600;
-    padding: 5px 10px;
-    margin-bottom: 0;
-  }
-
   .search-form input {
-    width: 400px;
-    height: 32px;
-  }
-  .search-form .search-btn {
-    width: 50px;
-    height: 32px;
+    max-width: 280px;
   }
 }
 @media only screen and (max-width: 991px) {
-  h1 {
-    font-weight: 600;
+  .main-header h1 {
     padding: 5px 0px;
-    margin-bottom: 0;
   }
 
   .search-form input {
-    width: 295px;
-    height: 32px;
+    max-width: 270px;
+    height: 36px;
   }
   .search-form .search-btn {
     width: 50px;
-    height: 32px;
+    height: 36px;
   }
 }
 @media only screen and (max-width: 767px) {
-  .main-header {
-    margin-bottom: 5px;
-    height: auto;
-  }
-  .main-header .account-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .main-header .account-menu .account:hover .account-control {
-    color: inherit;
-  }
-  .main-header .account {
-    height: auto;
-  }
-  .main-header .account .menu {
-    display: none;
-  }
-
   #header-nav-wrapper {
     position: sticky;
     z-index: 1;
     transition: 0.5s;
   }
-
-  .main-header {
+  #header-nav-wrapper #nav-mobile {
+    display: flex;
+  }
+  #header-nav-wrapper .main-header {
+    margin-bottom: 5px;
+    height: auto;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
   }
-
-  .search-form {
+  #header-nav-wrapper .main-header .search-form {
     width: 100%;
     order: 3;
   }
-  .search-form input {
+  #header-nav-wrapper .main-header .search-form input {
+    max-width: 100%;
     width: 100%;
     height: 32px;
   }
-  .search-form .search-btn {
+  #header-nav-wrapper .main-header .search-form .search-btn {
     width: 50px;
     height: 32px;
   }
-
-  .account-menu .account-info {
+  #header-nav-wrapper .main-header .user-actions #sell-btn {
     display: none;
   }
-
-  #account-btn {
+  #header-nav-wrapper .main-header .user-actions .account-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #header-nav-wrapper .main-header .user-actions .account-menu #nav-mobile-btn {
+    display: block;
+  }
+  #header-nav-wrapper .main-header .user-actions .account-menu .account-info {
+    display: none;
+  }
+  #header-nav-wrapper .main-header .user-actions .account-menu .account {
+    width: auto;
+    height: auto;
+  }
+  #header-nav-wrapper .main-header .user-actions .account-menu .account .account-control #account-btn {
     width: 25px;
     height: 25px;
   }
-
-  #nav-mobile-btn {
-    display: block;
-  }
-
-  .nav {
+  #header-nav-wrapper .main-header .user-actions .account-menu .account .menu {
     display: none;
   }
-
-  #nav-mobile {
-    display: flex;
+  #header-nav-wrapper .nav {
+    display: none;
   }
 }
 /* Header + Nav End */
 /* Listings (not one listing!) */
+.breadcrumbs {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  margin-top: 5px;
+}
+.breadcrumbs .breadcrumbs__item {
+  display: inline;
+}
+.breadcrumbs .breadcrumbs__item .breadcrumbs__link {
+  text-decoration: none;
+  color: black;
+}
+.breadcrumbs .breadcrumbs__item .breadcrumbs__link:hover {
+  text-decoration: underline;
+}
+.breadcrumbs .breadcrumbs__item .breadcrumbs__link--active {
+  color: #888282;
+}
+.breadcrumbs .breadcrumbs__item .breadcrumbs__link--active:hover {
+  text-decoration: none;
+}
+.breadcrumbs .breadcrumbs__item:not(:last-of-type)::after {
+  content: "-";
+  margin: 0 5px;
+  color: black;
+}
+
 .listing-container {
   position: relative;
   padding: 5px;
@@ -362,6 +428,9 @@ h1 {
   height: 25px;
   font-size: 20px;
 }
+.listing-container a {
+  text-decoration: none;
+}
 
 .img-container {
   display: flex;
@@ -375,14 +444,6 @@ h1 {
   max-width: 100%;
   width: auto;
   display: block;
-}
-
-.listing-title-wrapper > a {
-  color: #00275a;
-}
-
-.listing-title-wrapper > a:hover {
-  text-decoration: underline;
 }
 
 .listing-price {
@@ -399,14 +460,6 @@ h1 {
   right: 0px;
   bottom: 0px;
   margin: 10px;
-}
-
-.listed-by > a {
-  color: #00275a;
-}
-
-.listed-by > a:hover {
-  text-decoration: underline;
 }
 
 @media only screen and (max-width: 991px) {
@@ -444,6 +497,20 @@ h1 {
   }
 }
 @media only screen and (max-width: 575px) {
+  .breadcrumbs {
+    font-size: 10px;
+  }
+  .breadcrumbs .breadcrumbs__item:not(:last-of-type)::after {
+    margin: 0 2px;
+  }
+
+  .breadcrumbs__listing .breadcrumbs__link--active {
+    display: none;
+  }
+  .breadcrumbs__listing .breadcrumbs__item:nth-last-of-type(2)::after {
+    display: none;
+  }
+
   .listing-container h3 {
     margin-bottom: 2px;
   }
@@ -492,7 +559,10 @@ h1 {
 
 .watchlist-form {
   display: block;
-  margin-top: 5px;
+}
+
+#watchlist-btn-text {
+  transition: opacity 0.2s;
 }
 
 .listing-detail-price {
@@ -502,6 +572,7 @@ h1 {
 }
 
 .btn-large {
+  margin-top: 5px;
   width: 100%;
 }
 
@@ -509,6 +580,11 @@ h1 {
   width: 100%;
   display: block;
   padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.767);
+  border-radius: 1px;
+  background-color: #004d40;
+  color: white;
+  font-weight: 600;
 }
 
 .listing-basic-info label {
@@ -618,6 +694,16 @@ h1 {
   .img-listing-large {
     max-height: 250px;
   }
+
+  .listing-detail-price {
+    font-size: 16px;
+  }
+
+  #description-tab,
+#bids-tab,
+#comments-tab {
+    font-size: 14px;
+  }
 }
 /* Listing End */
 .categories-container {
@@ -634,37 +720,76 @@ h1 {
 }
 
 .create-listing {
-  width: 50%;
+  width: 500px;
   margin: 30px auto;
   padding: 25px 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-.create-listing textarea {
-  width: 280px;
-  height: 150px;
+.create-listing label {
+  font-weight: 600;
 }
-.create-listing label,
-.create-listing select {
-  display: block;
-}
-.create-listing input,
-.create-listing select {
-  width: 280px;
+.create-listing input {
+  width: 100%;
   height: 31px;
 }
 .create-listing select {
+  width: 100%;
+  height: 31px;
   -moz-text-align-last: center;
        text-align-last: center;
-  margin-bottom: 10px;
+}
+.create-listing textarea {
+  width: 100%;
+  height: 150px;
+}
+.create-listing #id_title,
+.create-listing #id_description,
+.create-listing #id_starting_price,
+.create-listing #id_image_url,
+.create-listing #id_category {
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.671);
+  border-radius: 5px;
+}
+.create-listing #id_category {
+  padding: 0;
+}
+.create-listing input[type=submit] {
+  width: 130px;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #16285c;
+  color: white;
+  font-weight: 600;
+  border-radius: 100px;
+}
+.create-listing h2 {
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .pagination {
+  padding: 0;
   display: flex;
-  justify-content: center;
   margin-bottom: 24px;
+}
+.pagination .prev-pages,
+.pagination #current,
+.pagination .next-pages {
+  display: flex;
+}
+.pagination .prev-pages {
+  flex: 2;
+  justify-content: flex-end;
+}
+.pagination .next-pages {
+  flex: 2;
+  justify-content: flex-start;
 }
 .pagination a {
   text-decoration: none !important;
@@ -701,6 +826,12 @@ h1 {
   background-color: #c7c0c0;
 }
 
+@media only screen and (max-width: 767px) {
+  .pagination {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}
 @media only screen and (max-width: 575px) {
   .pagination {
     margin-top: 10px;
@@ -738,12 +869,104 @@ h1 {
   height: 100px;
 }
 .footer-container p {
-  color: #666666;
+  color: #1d1c1c;
   margin-bottom: 0;
 }
 
+@media only screen and (max-width: 767px) {
+  footer p {
+    font-size: 14px;
+  }
+}
 @media only screen and (max-width: 575px) {
   footer p {
     font-size: 10px;
+  }
+}
+#login-register-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+#login-register-form-wrapper header a {
+  text-decoration: none;
+  color: black;
+  padding: 2em;
+}
+#login-register-form-wrapper h1 {
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+#login-register-form-wrapper .form-signin,
+#login-register-form-wrapper .form-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  padding: 15px;
+}
+#login-register-form-wrapper .form-signin h1,
+#login-register-form-wrapper .form-signin span,
+#login-register-form-wrapper .form-register h1,
+#login-register-form-wrapper .form-register span {
+  text-align: center;
+}
+#login-register-form-wrapper .form-signin .form-group,
+#login-register-form-wrapper .form-register .form-group {
+  width: 100%;
+}
+#login-register-form-wrapper .form-signin .form-group .form-control,
+#login-register-form-wrapper .form-register .form-group .form-control {
+  position: relative;
+  padding: 10px;
+  font-size: 16px;
+}
+#login-register-form-wrapper .form-signin .form-group .form-control:focus,
+#login-register-form-wrapper .form-register .form-group .form-control:focus {
+  z-index: 2;
+}
+#login-register-form-wrapper .form-signin button,
+#login-register-form-wrapper .form-register button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+#login-register-form-wrapper .form-signin input[type=text] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#login-register-form-wrapper .form-signin input[type=password] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+#login-register-form-wrapper .form-register input[type=text],
+#login-register-form-wrapper .form-register input[type=password],
+#login-register-form-wrapper .form-register input[type=email] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+#login-register-form-wrapper .form-register input[type=text] {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+#login-register-form-wrapper .form-register input[type=password]:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+@media only screen and (max-width: 575px) {
+  #login-register-form-wrapper .form-signin,
+#login-register-form-wrapper .form-register {
+    width: 280px;
+  }
+  #login-register-form-wrapper .form-signin #toggle,
+#login-register-form-wrapper .form-register #toggle {
+    font-size: 14px;
   }
 }/*# sourceMappingURL=styles.css.map */

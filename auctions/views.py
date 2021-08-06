@@ -1,17 +1,19 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.paginator import Paginator
+
+import json
 
 from .models import User, Listing, Bid, Comment
 from .forms import ListingForm, BidForm
 
 
 def paginator_helper(request, listings):
-    p = Paginator(listings, 40)
+    p = Paginator(listings, 36)
     page_num = request.GET.get('page', 1)
     page = p.page(page_num)
     return page
@@ -75,7 +77,8 @@ def listing(request, id):
         'bid_form': BidForm(),
         'watched': is_watched,
         'message': message,
-        'user_in_bids': user_in_bids
+        'user_in_bids': user_in_bids,
+        'breadcrumbs': True
     })
 
 
@@ -87,7 +90,8 @@ def search(request):
 
 
 def search_results(request, searched):
-    results = Listing.objects.filter(title__contains=searched)
+    results = Listing.objects.filter(
+        closed=False).filter(title__contains=searched)
     return render(request, "auctions/search_results.html", {
         'searched': searched, 'results': results})
 
@@ -165,14 +169,13 @@ def watchlist(request):
 def watchlist_switch(request, id):
     # add or remove item from user's watchlist
     if request.method == "POST":
-        command = request.POST['watchlist_command']
         listing = Listing.objects.get(pk=id)
-        if command == 'add':
-            listing.watchlist_users.add(request.user)
-        elif command == 'remove':
+        if request.user in listing.watchlist_users.all():
             listing.watchlist_users.remove(request.user)
-    return HttpResponseRedirect(
-        reverse("listing", kwargs={'id': id}))
+            return JsonResponse({"message": "Removed!"}, status=200)
+        else:
+            listing.watchlist_users.add(request.user)
+            return JsonResponse({"message": "Added!"}, status=200)
 
 
 def categories(request):
@@ -195,7 +198,8 @@ def category(request, category_name):
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': category_name,
-        'listings_page': page
+        'listings_page': page,
+        'breadcrumbs': True
     })
 
 

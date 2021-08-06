@@ -2,15 +2,17 @@
 
 {% block body %}
 
-<h2 class='page-header'>Categories</h2>
+<div class='container-md main-container'> 
+    <h2 class='page-header'>Categories</h2>
 
-<div class='categories-container'>
-    {% for category in categories %}
-        <div class='category'>
-            <a href={% url 'category' category %}><button class='btn btn-secondary'>{{ category }}</button></a>
-        </div>
+    <div class='categories-container'>
+        {% for category in categories %}
+            <div class='category'>
+                <a href={% url 'category' category %}><button class='btn btn-secondary'>{{ category }}</button></a>
+            </div>
 
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
