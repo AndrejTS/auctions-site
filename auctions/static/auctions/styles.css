@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400&family=Teko:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -10,8 +11,9 @@
 }
 
 body {
-  background-color: rgba(219, 222, 226, 0.651);
+  background-color: rgba(235, 237, 240, 0.856);
   font-size: 18px;
+  font-family: "Lato", sans-serif;
 }
 
 #header-nav-wrapper {
@@ -25,21 +27,15 @@ body {
   min-height: 100vh;
 }
 
-#main a {
-  text-decoration: none;
-  color: #185adb;
-}
-
-#main a:hover,
-#main a:active {
-  text-decoration: underline;
-}
-
 .page-header {
   font-size: 32px;
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: 600;
+}
+
+a {
+  color: #284a26;
 }
 
 @media only screen and (max-width: 575px) {
@@ -62,8 +58,10 @@ body {
   color: black;
 }
 .main-header h1 {
-  letter-spacing: 1px;
-  font-weight: 600;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-size: 46px;
+  color: #3e2723;
   padding: 5px 10px;
   margin-bottom: 0;
 }
@@ -105,13 +103,13 @@ body {
   align-items: center;
 }
 .user-actions #sell-btn {
-  margin-right: 16px;
-  width: 126px;
-  height: 36px;
-  background-color: #f0f0f0;
-  border: 1px solid rgba(0, 0, 0, 0.226);
-  border-radius: 2px;
-  color: black;
+  margin-left: 16px;
+  width: 60px;
+  height: 40px;
+  background-color: #3e2723;
+  border: 1px solid #16161675;
+  border-radius: 5px;
+  color: #ececec;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -126,11 +124,14 @@ body {
   position: relative;
 }
 .user-actions .account-menu .account .account-control {
-  color: rgba(41, 41, 41, 0.986);
+  color: black;
 }
 .user-actions .account-menu .account .account-control #account-btn {
   width: 36px;
   height: 36px;
+}
+.user-actions .account-menu .account .account-control:hover {
+  cursor: pointer;
 }
 .user-actions .account-menu .account a {
   display: flex;
@@ -178,7 +179,7 @@ body {
 }
 .user-actions .account-menu .account .menu #logout-btn {
   height: 30px;
-  background-color: #5c5116;
+  background-color: #544b2b;
   border: 1px solid rgba(0, 0, 0, 0.514);
   border-radius: 1%;
   display: flex;
@@ -196,10 +197,7 @@ body {
   margin-left: 7px;
   color: white;
 }
-.user-actions .account-menu .account:hover .account-control {
-  color: rgba(19, 37, 90, 0.986);
-}
-.user-actions .account-menu .account:hover .menu {
+.user-actions .account-menu .account .menu.show {
   visibility: visible;
   opacity: 1;
 }
@@ -214,7 +212,7 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-size: 12px;
+  font-size: 11px;
   margin: 0 6px;
 }
 .user-actions .account-menu .account-info p {
@@ -235,11 +233,96 @@ body {
 }
 .nav .nav-link:visited,
 .nav .nav-link:link {
-  color: black;
+  color: #3e2723;
 }
 .nav .nav-link:hover,
 .nav .nav-link:active {
   text-decoration: underline;
+}
+
+#menu-mobile-btn {
+  display: none;
+  z-index: 1;
+  transition: color 1s;
+}
+
+#menu-mobile-btn.menu-mobile-btn--active {
+  color: #284a26;
+}
+
+.menu-mobile {
+  display: none;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s;
+  background-color: white;
+}
+.menu-mobile a {
+  text-decoration: none;
+}
+.menu-mobile ul {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 72px;
+  height: 200px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.menu-mobile ul li {
+  width: 150px;
+  list-style: none;
+}
+.menu-mobile ul li a {
+  font-size: 24px;
+  text-decoration: none;
+}
+.menu-mobile ul li:hover {
+  background-color: rgba(201, 194, 194, 0.144);
+}
+.menu-mobile #sell-btn-mobile,
+.menu-mobile #logout-btn {
+  height: 40px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2px;
+}
+.menu-mobile #sell-btn-mobile {
+  background-color: #3e2723;
+  border: 1px solid #16161675;
+  border-radius: 5px;
+  color: #ececec;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 18px;
+}
+.menu-mobile #logout-btn {
+  color: #3e2723;
+  background-color: #ececec;
+  border: 1px solid #16161675;
+  border-radius: 5px;
+}
+.menu-mobile #logout-btn span {
+  font-size: 16px;
+  color: #3e2723;
+}
+.menu-mobile #logout-btn svg {
+  margin-left: 7px;
+  color: #3e2723;
+}
+
+.menu-mobile.menu-mobile--active {
+  visibility: visible;
+  opacity: 1;
 }
 
 #nav-mobile-btn {
@@ -291,6 +374,9 @@ body {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.925);
 }
+#nav-mobile .nav__list .nav__item:last-child {
+  border-bottom: none;
+}
 
 #nav-mobile.nav--active {
   visibility: visible;
@@ -307,7 +393,7 @@ body {
 }
 @media only screen and (max-width: 1199px) {
   .search-form input {
-    max-width: 280px;
+    max-width: 410px;
   }
 }
 @media only screen and (max-width: 991px) {
@@ -323,12 +409,19 @@ body {
     width: 50px;
     height: 36px;
   }
+
+  .user-actions #sell-btn {
+    margin-left: 3px;
+  }
 }
 @media only screen and (max-width: 767px) {
   #header-nav-wrapper {
     position: sticky;
     z-index: 1;
     transition: 0.5s;
+  }
+  #header-nav-wrapper .menu-mobile {
+    display: block;
   }
   #header-nav-wrapper #nav-mobile {
     display: flex;
@@ -339,6 +432,9 @@ body {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
+  #header-nav-wrapper .main-header h1 {
+    font-size: 30px;
   }
   #header-nav-wrapper .main-header .search-form {
     width: 100%;
@@ -361,21 +457,15 @@ body {
     justify-content: center;
     align-items: center;
   }
-  #header-nav-wrapper .main-header .user-actions .account-menu #nav-mobile-btn {
-    display: block;
-  }
-  #header-nav-wrapper .main-header .user-actions .account-menu .account-info {
-    display: none;
-  }
-  #header-nav-wrapper .main-header .user-actions .account-menu .account {
-    width: auto;
-    height: auto;
-  }
-  #header-nav-wrapper .main-header .user-actions .account-menu .account .account-control #account-btn {
+  #header-nav-wrapper .main-header .user-actions .account-menu #menu-mobile-btn {
+    display: inline;
     width: 25px;
     height: 25px;
   }
-  #header-nav-wrapper .main-header .user-actions .account-menu .account .menu {
+  #header-nav-wrapper .main-header .user-actions .account-menu #nav-mobile-btn {
+    display: block;
+  }
+  #header-nav-wrapper .main-header .user-actions .account-menu .account {
     display: none;
   }
   #header-nav-wrapper .nav {
@@ -582,7 +672,7 @@ body {
   padding: 3px;
   border: 1px solid rgba(0, 0, 0, 0.767);
   border-radius: 1px;
-  background-color: #004d40;
+  background-color: #284a26;
   color: white;
   font-weight: 600;
 }
@@ -722,14 +812,11 @@ body {
 .create-listing {
   width: 500px;
   margin: 30px auto;
-  padding: 25px 0;
+  padding: 25px 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-}
-.create-listing label {
-  font-weight: 600;
 }
 .create-listing input {
   width: 100%;
@@ -759,12 +846,13 @@ body {
 }
 .create-listing input[type=submit] {
   width: 130px;
+  height: 50px;
   margin: 0 auto;
   margin-top: 20px;
-  background-color: #16285c;
+  background-color: #3e2723;
   color: white;
   font-weight: 600;
-  border-radius: 100px;
+  border-radius: 5px;
 }
 .create-listing h2 {
   font-weight: 600;
@@ -773,6 +861,11 @@ body {
   margin-bottom: 20px;
 }
 
+@media only screen and (max-width: 767px) {
+  .create-listing {
+    width: 100%;
+  }
+}
 .pagination {
   padding: 0;
   display: flex;
