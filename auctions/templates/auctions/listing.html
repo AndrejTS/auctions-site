@@ -106,14 +106,14 @@ Auctions - {{ listing.title }}
                         {% csrf_token %}
                         <input type='hidden' id="listing_id" value={{ listing.id }}>
                         {% if watched is True %}
-                            <button class='btn-large btn btn-secondary' type="submit"><span id='watchlist-btn-text'>Remove from watchlist</span></button>
+                            <button class='watchlist-btn' type="submit"><span id='watchlist-btn-text'>Remove from watchlist</span></button>
                         {% else %}
-                            <button class='btn-large btn btn-secondary' type="submit"><span id='watchlist-btn-text'>Add to watchlist</span></button>
+                            <button class='watchlist-btn' type="submit"><span id='watchlist-btn-text'>Add to watchlist</span></button>
                         {% endif %}
                     </form>
                 {% else %}
                     <a href="{% url 'login' %}?next=/listing/{{ listing.id }}">
-                        <button class='btn-large btn btn-secondary'>Add to watchlist</button>
+                        <button class='watchlist-btn'>Add to watchlist</button>
                     </a>
                 {% endif %}
             {% endif %}
