@@ -115,48 +115,88 @@
 
             {% comment %} Mobile nav {% endcomment %}
             <nav id="nav-mobile">
+                <h1>Categories</h1>
                 <ul class="nav__list">
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Auto' %}">Auto</a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Fashion' %}">Fashion</a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Electronics' %}">Electronics</a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Home' %}">Home</a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Books' %}">Books</a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Sport' %}">Sport</a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="{% url 'category' 'Other' %}">Other</a>
-                    </li>
+                    <a href="{% url 'category' 'Auto' %}">
+                        <li>
+                        <span>Auto</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>
+                    <a href="{% url 'category' 'Fashion' %}">
+                        <li>
+                        <span>Fashion</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>
+                    <a href="{% url 'category' 'Electronics' %}">
+                        <li>
+                        <span>Electronics</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>
+                    <a href="{% url 'category' 'Home' %}">
+                        <li>
+                        <span>Home</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>
+                    <a href="{% url 'category' 'Books' %}">
+                        <li>
+                        <span>Books</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>
+                    <a href="{% url 'category' 'Sport' %}">
+                        <li>
+                        <span>Sport</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>
+                    <a href="{% url 'category' 'Other' %}">
+                        <li>
+                        <span>Other</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        </li>
+                    </a>            
                 </ul>
             </nav>
 
             {% comment %} Mobile menu {% endcomment %}
             <div class='menu-mobile'>
-                <ul>
-                    <li><a href="{% url 'i_am_bidding' %}">I am bidding</a></li>
-                    <li><a href="{% url 'my_wins' %}">Won auctions</a></li>
-                    <li><a href="{% url 'dont_won' %}">Not won</a></li>
-                    <li><a href="{% url 'my_listings' %}">Your listings</a></li>
-                    <li><a href="{% url 'watchlist' %}">Watchlist</a></li>
-                </ul>
-                <a href="{% url 'create_listing' %}"><button id='sell-btn-mobile'>SELL</button></a>
-                <a href="{% url 'logout' %}"><button id='logout-btn'>
-                    <span>Logout</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                    </svg>
-                </button></a>
+                <div id='menu-mobile-main'>
+                    <ul>
+                        <li><a href="{% url 'i_am_bidding' %}">I am bidding</a></li>
+                        <li><a href="{% url 'my_wins' %}">Won auctions</a></li>
+                        <li><a href="{% url 'dont_won' %}">Not won</a></li>
+                        <li><a href="{% url 'my_listings' %}">Your listings</a></li>
+                        <li><a href="{% url 'watchlist' %}">Watchlist</a></li>
+                    </ul>
+                    <a href="{% url 'create_listing' %}"><button id='sell-btn-mobile'>SELL</button></a>
+                    <a href="{% url 'logout' %}"><button id='logout-btn'>
+                        <span>Logout</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
+                    </button></a>
+                </div>
+                <div id='menu-mobile-graying'>
+                </div>
             </div>
         </div>
     </div>

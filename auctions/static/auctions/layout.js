@@ -12,15 +12,21 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Account menu mobile
 const accountButtonMobile = document.querySelector('#menu-mobile-btn');
+
 const menuMobile = document.querySelector('.menu-mobile');
+
+const grayArea = document.querySelector('#menu-mobile-graying');
 
 accountButtonMobile.addEventListener('click', () => {
   menuMobile.classList.toggle('menu-mobile--active');
-  accountButtonMobile.classList.toggle('menu-mobile-btn--active');
   body.classList.toggle('lock-scroll');
+});
 
-  //   checkBodyLock();
+grayArea.addEventListener('click', () => {
+  menuMobile.classList.toggle('menu-mobile--active');
+  body.classList.toggle('lock-scroll');
 });
 
 // Mobile navigation

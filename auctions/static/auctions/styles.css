@@ -246,11 +246,8 @@ a {
   transition: color 1s;
 }
 
-#menu-mobile-btn.menu-mobile-btn--active {
-  color: #284a26;
-}
-
 .menu-mobile {
+  z-index: 2;
   display: none;
   visibility: hidden;
   position: fixed;
@@ -260,12 +257,20 @@ a {
   height: 100vh;
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s;
-  background-color: white;
 }
-.menu-mobile a {
+.menu-mobile #menu-mobile-main {
+  position: absolute;
+  z-index: 1;
+  width: calc(100% - 95px);
+  height: 100%;
+  background-color: white;
+  transition: transform 0.2s;
+  transform: translate(-100%);
+}
+.menu-mobile #menu-mobile-main a {
   text-decoration: none;
 }
-.menu-mobile ul {
+.menu-mobile #menu-mobile-main ul {
   width: 80%;
   margin: 0 auto;
   margin-top: 72px;
@@ -275,19 +280,20 @@ a {
   justify-content: center;
   align-items: center;
 }
-.menu-mobile ul li {
+.menu-mobile #menu-mobile-main ul li {
   width: 150px;
   list-style: none;
+  margin-bottom: 6px;
 }
-.menu-mobile ul li a {
-  font-size: 24px;
+.menu-mobile #menu-mobile-main ul li a {
+  font-size: 20px;
   text-decoration: none;
 }
-.menu-mobile ul li:hover {
+.menu-mobile #menu-mobile-main ul li:hover {
   background-color: rgba(201, 194, 194, 0.144);
 }
-.menu-mobile #sell-btn-mobile,
-.menu-mobile #logout-btn {
+.menu-mobile #menu-mobile-main #sell-btn-mobile,
+.menu-mobile #menu-mobile-main #logout-btn {
   height: 40px;
   width: 80%;
   display: flex;
@@ -296,7 +302,7 @@ a {
   margin: 0 auto;
   padding: 2px;
 }
-.menu-mobile #sell-btn-mobile {
+.menu-mobile #menu-mobile-main #sell-btn-mobile {
   background-color: #3e2723;
   border: 1px solid #16161675;
   border-radius: 5px;
@@ -305,24 +311,33 @@ a {
   margin-top: 32px;
   margin-bottom: 18px;
 }
-.menu-mobile #logout-btn {
+.menu-mobile #menu-mobile-main #logout-btn {
   color: #3e2723;
   background-color: #ececec;
   border: 1px solid #16161675;
   border-radius: 5px;
 }
-.menu-mobile #logout-btn span {
+.menu-mobile #menu-mobile-main #logout-btn span {
   font-size: 16px;
   color: #3e2723;
 }
-.menu-mobile #logout-btn svg {
+.menu-mobile #menu-mobile-main #logout-btn svg {
   margin-left: 7px;
   color: #3e2723;
+}
+.menu-mobile #menu-mobile-graying {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.8;
 }
 
 .menu-mobile.menu-mobile--active {
   visibility: visible;
   opacity: 1;
+}
+.menu-mobile.menu-mobile--active #menu-mobile-main {
+  transform: translate(0px, 0px);
 }
 
 #nav-mobile-btn {
@@ -335,23 +350,31 @@ a {
 }
 
 #nav-mobile-btn.nav--active {
-  color: rgba(255, 255, 255, 0.925);
+  color: rgba(0, 0, 0, 0.925);
 }
 
 #nav-mobile {
   display: none;
+  flex-direction: column;
   visibility: hidden;
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: white;
   z-index: 1;
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s;
   justify-content: flex-start;
   align-items: center;
+}
+#nav-mobile h1 {
+  margin-top: 58px;
+  padding-left: 40px;
+  width: 100%;
+  text-align: start;
+  font-size: 22px;
 }
 #nav-mobile .nav__list {
   padding-left: 40px !important;
@@ -363,19 +386,18 @@ a {
   flex-direction: column;
   justify-content: center;
 }
-#nav-mobile .nav__list .nav__item {
-  padding: 10px;
-  border-bottom: 1px solid #1b1b1b;
-  opacity: 0;
-  transition: opacity 300ms;
-  transition-delay: 300ms;
-}
-#nav-mobile .nav__list .nav__item .nav__link {
+#nav-mobile .nav__list a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.925);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.459);
 }
-#nav-mobile .nav__list .nav__item:last-child {
-  border-bottom: none;
+#nav-mobile .nav__list a:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.459);
+}
+#nav-mobile .nav__list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 #nav-mobile.nav--active {
@@ -588,7 +610,7 @@ a {
 }
 @media only screen and (max-width: 575px) {
   .breadcrumbs {
-    font-size: 10px;
+    font-size: 12px;
   }
   .breadcrumbs .breadcrumbs__item:not(:last-of-type)::after {
     margin: 0 2px;
@@ -638,6 +660,16 @@ a {
   background-color: white;
   padding: 15px;
 }
+.listing-basic-info form input[type=number]::-webkit-inner-spin-button,
+.listing-basic-info form input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.listing-basic-info form #id_amount {
+  padding: 3px;
+  border-radius: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.349);
+}
 .listing-basic-info .closed-price {
   color: #b9bbbc;
 }
@@ -661,9 +693,15 @@ a {
   font-weight: 600;
 }
 
-.btn-large {
+.watchlist-btn {
   margin-top: 5px;
   width: 100%;
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.349);
+  border-radius: 1px;
+  background-color: white;
+  color: #284a26;
+  font-weight: 600;
 }
 
 .bid-btn {
@@ -754,8 +792,8 @@ a {
 
 #bids-tab p,
 #description-tab p {
+  padding: 30px 80px;
   margin-bottom: 0;
-  text-align: center;
 }
 
 .comments-container {
@@ -962,7 +1000,7 @@ a {
   height: 100px;
 }
 .footer-container p {
-  color: #1d1c1c;
+  color: rgba(29, 28, 28, 0.479);
   margin-bottom: 0;
 }
 
@@ -988,8 +1026,9 @@ a {
   padding: 2em;
 }
 #login-register-form-wrapper h1 {
-  letter-spacing: 1px;
-  font-weight: 600;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  color: #3e2723;
 }
 #login-register-form-wrapper .form-signin,
 #login-register-form-wrapper .form-register {
@@ -1025,6 +1064,7 @@ a {
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
+  background-color: #3e2723;
 }
 #login-register-form-wrapper .form-signin input[type=text] {
   margin-bottom: -1px;
