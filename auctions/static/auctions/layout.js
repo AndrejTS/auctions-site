@@ -41,20 +41,7 @@ toggleButton.addEventListener('click', () => {
   if (!menuMobile.classList.contains('menu-mobile--active')) {
     body.classList.toggle('lock-scroll');
   }
-  // Close also menuMobile (if visible)
-  //   menuMobile.classList.remove('menu-mobile--active');
-
-  //   checkBodyLock();
 });
-
-// function checkBodyLock() {
-//   if (
-//     !menuMobile.classList.contains('menu-mobile--active') &&
-//     !navbarMobile.classList.contains('nav--active')
-//   ) {
-//     body.classList.remove('lock-scroll');
-//   }
-// }
 
 let lastScrollTop = 0;
 window.addEventListener('scroll', function () {
