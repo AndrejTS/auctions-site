@@ -81,7 +81,7 @@ Auctions - {{ listing.title }}
                 {% endif %}
 
                 {% if user_in_bids %}
-                    {% if bids.last.user == request.user %}
+                    {% if bids.first.user == request.user %}
                         <p class='bids-info bid-is-last'><strong>Your bid is last bid</strong></p>
                     {% else %}
                         <p class='bids-info bid-alert'><strong>Your bid is not last bid</strong></p>
@@ -106,7 +106,12 @@ Auctions - {{ listing.title }}
                         {% csrf_token %}
                         <input type='hidden' id="listing_id" value={{ listing.id }}>
                         {% if watched is True %}
-                            <button class='watchlist-btn' type="submit"><span id='watchlist-btn-text'>Remove from watchlist</span></button>
+                            <button class='watchlist-btn' type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                                <span id='watchlist-btn-text'>Watching</span>
+                            </button>
                         {% else %}
                             <button class='watchlist-btn' type="submit"><span id='watchlist-btn-text'>Add to watchlist</span></button>
                         {% endif %}
@@ -131,8 +136,6 @@ Auctions - {{ listing.title }}
         </div>
     </div>
 
-    <hr>
-
     <div class='product-tabs'>
         <p id='description-heading'>Description</p>
         <p id='bids-heading'>Bids</p>
@@ -149,11 +152,24 @@ Auctions - {{ listing.title }}
         </div>
 
         <div id="bids-tab">
-            {% for bid in bids %}
-                <p>${{ bid.amount }} by {{ bid.user }}</p>
-            {% empty %}
+            {% if bids %}
+                <table class='bids-table'>
+                    <tr>
+                        <th>Bidder</th>
+                        <th>Amount</th>
+                        <th>Time</th>
+                    </tr>
+                {% for bid in bids %}
+                    <tr>
+                        <td>{{ bid.user }}</td>
+                        <td>${{ bid.amount }}</td>
+                        <td>{{ bid.date_added }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            {% else %}
                 <p>No bids</p>
-            {% endfor %}
+            {% endif %}
         </div>
 
         <div id="comments-tab">

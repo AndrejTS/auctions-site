@@ -38,6 +38,10 @@ a {
   color: #284a26;
 }
 
+a:hover {
+  color: #284a26;
+}
+
 @media only screen and (max-width: 575px) {
   .page-header {
     font-size: 16px;
@@ -683,10 +687,6 @@ a {
   display: block;
 }
 
-#watchlist-btn-text {
-  transition: opacity 0.2s;
-}
-
 .listing-detail-price {
   font-size: 22px;
   margin-bottom: 10px;
@@ -696,21 +696,29 @@ a {
 .watchlist-btn {
   margin-top: 5px;
   width: 100%;
+  height: 36px;
   padding: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.349);
+  border: 1px solid #cec9c9;
   border-radius: 1px;
   background-color: white;
-  color: #284a26;
+  color: rgba(0, 0, 0, 0.829);
   font-weight: 600;
+}
+.watchlist-btn svg {
+  width: 24px;
+  height: 24px;
+  color: green;
+  margin-right: 5px;
 }
 
 .bid-btn {
+  height: 36px;
   width: 100%;
   display: block;
   padding: 3px;
   border: 1px solid rgba(0, 0, 0, 0.767);
   border-radius: 1px;
-  background-color: #284a26;
+  background-color: #3e2723;
   color: white;
   font-weight: 600;
 }
@@ -735,6 +743,18 @@ a {
   font-size: 14px;
   margin-bottom: 0;
 }
+.detail-listed-by a,
+.detail-start-price a,
+.detail-category a,
+.bids-info a {
+  text-decoration: none;
+}
+.detail-listed-by a:hover,
+.detail-start-price a:hover,
+.detail-category a:hover,
+.bids-info a:hover {
+  text-decoration: underline;
+}
 
 .bids-info.bid-alert {
   color: #a70f0f;
@@ -757,25 +777,29 @@ a {
   max-height: 431px;
 }
 
+.hr-listing {
+  margin: 50px 0;
+}
+
 .product-tabs {
   display: flex;
   justify-content: center;
+  margin-top: 75px;
 }
 
 .tabs {
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 
 #description-heading,
 #bids-heading,
 #comments-heading {
-  margin-top: 4px;
   margin-bottom: 0;
-  font-weight: 600;
-  padding: 6px;
+  padding: 14px;
   text-align: center;
   font-size: 18px;
   background-color: white;
+  color: #202020;
   cursor: pointer;
 }
 
@@ -789,11 +813,31 @@ a {
   padding-right: 25px;
   background-color: white;
 }
-
+#description-tab p,
 #bids-tab p,
-#description-tab p {
-  padding: 30px 80px;
-  margin-bottom: 0;
+#comments-tab p {
+  margin: 0;
+}
+
+#bids-tab {
+  padding: 40px;
+  color: rgba(0, 0, 0, 0.76);
+}
+#bids-tab .bids-table {
+  width: 700px;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.76);
+}
+#bids-tab .bids-table th,
+#bids-tab .bids-table td {
+  padding: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.76);
+}
+#bids-tab .bids-table th {
+  background-color: rgba(32, 32, 32, 0.336);
+}
+#bids-tab .bids-table tr:nth-child(2) {
+  font-weight: 600;
 }
 
 .comments-container {
@@ -891,6 +935,7 @@ a {
   color: white;
   font-weight: 600;
   border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.767);
 }
 .create-listing h2 {
   font-weight: 600;
@@ -1058,6 +1103,8 @@ a {
 #login-register-form-wrapper .form-signin .form-group .form-control:focus,
 #login-register-form-wrapper .form-register .form-group .form-control:focus {
   z-index: 2;
+  border-color: rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.315);
 }
 #login-register-form-wrapper .form-signin button,
 #login-register-form-wrapper .form-register button {
@@ -1065,6 +1112,12 @@ a {
   margin-bottom: 10px;
   width: 100%;
   background-color: #3e2723;
+  border-color: rgba(0, 0, 0, 0.616);
+}
+#login-register-form-wrapper .form-signin button:focus,
+#login-register-form-wrapper .form-register button:focus {
+  border-color: rgba(0, 0, 0, 0.315);
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.315);
 }
 #login-register-form-wrapper .form-signin input[type=text] {
   margin-bottom: -1px;

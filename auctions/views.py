@@ -55,7 +55,7 @@ def listing(request, id):
     else:
         message = None
     listing = Listing.objects.get(pk=id)
-    bids = Bid.objects.filter(listing=listing).all()
+    bids = Bid.objects.filter(listing=listing).order_by('-date_added').all()
     comments = Comment.objects.filter(listing=listing).all()
     is_watched = False
 
