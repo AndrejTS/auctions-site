@@ -293,9 +293,6 @@ a:hover {
   font-size: 20px;
   text-decoration: none;
 }
-.menu-mobile #menu-mobile-main ul li:hover {
-  background-color: rgba(201, 194, 194, 0.144);
-}
 .menu-mobile #menu-mobile-main #sell-btn-mobile,
 .menu-mobile #menu-mobile-main #logout-btn {
   height: 40px;
