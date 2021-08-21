@@ -179,6 +179,13 @@
             {% comment %} Mobile menu {% endcomment %}
             <div class='menu-mobile'>
                 <div id='menu-mobile-main'>
+
+                    {% if user.is_authenticated %}
+                        <div class='username'>
+                            <p>Logged in as <b>{{ user.username }}</b></p>
+                        </div>
+                    {% endif %}
+
                     <ul>
                         <li><a href="{% url 'i_am_bidding' %}">I am bidding</a></li>
                         <li><a href="{% url 'my_wins' %}">Won auctions</a></li>

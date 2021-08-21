@@ -271,18 +271,27 @@ a:hover {
   transition: transform 0.2s;
   transform: translate(-100%);
 }
+.menu-mobile #menu-mobile-main .username {
+  background-color: rgba(156, 152, 152, 0.322);
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.menu-mobile #menu-mobile-main .username p {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 16px;
+}
 .menu-mobile #menu-mobile-main a {
   text-decoration: none;
 }
 .menu-mobile #menu-mobile-main ul {
   width: 80%;
   margin: 0 auto;
-  margin-top: 72px;
-  height: 200px;
+  margin-top: 32px;
+  margin-bottom: 32px;
   padding: 0;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 .menu-mobile #menu-mobile-main ul li {
   width: 150px;
@@ -309,7 +318,6 @@ a:hover {
   border-radius: 5px;
   color: #ececec;
   font-weight: 600;
-  margin-top: 32px;
   margin-bottom: 18px;
 }
 .menu-mobile #menu-mobile-main #login-logout-btn {
