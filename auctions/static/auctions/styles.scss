@@ -1097,7 +1097,8 @@ a:hover {
 .pagination {
   padding: 0;
   display: flex;
-  margin-bottom: 24px;
+  margin-top: 6px;
+  margin-bottom: 30px;
 
   .prev-pages,
   #current,
@@ -1160,8 +1161,8 @@ a:hover {
 
 @media only screen and (max-width: 575px) {
   .pagination {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 17px;
+    margin-bottom: 17px;
     font-size: 12px;
   }
 
