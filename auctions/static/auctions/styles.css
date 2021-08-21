@@ -294,7 +294,7 @@ a:hover {
   text-decoration: none;
 }
 .menu-mobile #menu-mobile-main #sell-btn-mobile,
-.menu-mobile #menu-mobile-main #logout-btn {
+.menu-mobile #menu-mobile-main #login-logout-btn {
   height: 40px;
   width: 80%;
   display: flex;
@@ -312,17 +312,17 @@ a:hover {
   margin-top: 32px;
   margin-bottom: 18px;
 }
-.menu-mobile #menu-mobile-main #logout-btn {
+.menu-mobile #menu-mobile-main #login-logout-btn {
   color: #3e2723;
   background-color: #ececec;
   border: 1px solid #16161675;
   border-radius: 5px;
 }
-.menu-mobile #menu-mobile-main #logout-btn span {
+.menu-mobile #menu-mobile-main #login-logout-btn span {
   font-size: 16px;
   color: #3e2723;
 }
-.menu-mobile #menu-mobile-main #logout-btn svg {
+.menu-mobile #menu-mobile-main #login-logout-btn svg {
   margin-left: 7px;
   color: #3e2723;
 }
