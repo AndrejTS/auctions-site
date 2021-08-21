@@ -20,7 +20,8 @@ def paginator_helper(request, listings):
 
 
 def index(request):
-    listings = Listing.objects.filter(closed=False).order_by('id').all()
+    listings = Listing.objects.filter(
+        closed=False).order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': 'Active Listings',

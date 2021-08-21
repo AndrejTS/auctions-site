@@ -21,6 +21,7 @@ class Listing(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name='listings')
     watchlist_users = models.ManyToManyField(
         User, related_name='watchlist', blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
