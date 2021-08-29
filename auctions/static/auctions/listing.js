@@ -77,7 +77,7 @@ function loadTab(name) {
       'white';
     document.querySelector('#description-heading').style.fontWeight = '600';
   } else if (name == 'bids') {
-    document.querySelector('#bids-tab').style.display = 'flex';
+    document.querySelector('#bids-tab').style.display = 'block';
     document.querySelector('#bids-heading').style.backgroundColor = 'white';
     document.querySelector('#bids-heading').style.fontWeight = '600';
   } else if (name == 'comments') {
@@ -85,4 +85,61 @@ function loadTab(name) {
     document.querySelector('#comments-heading').style.backgroundColor = 'white';
     document.querySelector('#comments-heading').style.fontWeight = '600';
   }
+}
+
+// Carousel
+let currentPart = 1;
+const carousel = document.querySelector('.carousel');
+const nextBtn = document.querySelector('#next-btn');
+const prevBtn = document.querySelector('#prev-btn');
+
+prevBtn.classList.toggle('disabled');
+
+nextBtn.addEventListener('click', () => rotateCarousel('next'));
+prevBtn.addEventListener('click', () => rotateCarousel('prev'));
+
+// Set to zero for better reference
+carousel.style.transform = `translateX(0px)`;
+
+function rotateCarousel(direction) {
+  const carouselStyle = getComputedStyle(carousel);
+  const width = parseInt(carouselStyle.width, 10);
+  const translateX = new WebKitCSSMatrix(carouselStyle.transform).m41;
+
+  let newTranslateX;
+
+  if (direction === 'next') {
+    if (currentPart === 1) {
+      newTranslateX = translateX - width * 0.95;
+      currentPart += 1;
+    } else if (currentPart === 2) {
+      newTranslateX = translateX - width * 0.88;
+      currentPart += 1;
+    } else {
+      return;
+    }
+  }
+
+  if (direction === 'prev') {
+    if (currentPart === 3) {
+      newTranslateX = translateX + width * 0.88;
+      currentPart -= 1;
+    } else if (currentPart === 2) {
+      newTranslateX = translateX + width * 0.95;
+      currentPart -= 1;
+    } else {
+      return;
+    }
+  }
+
+  if (currentPart === 3) {
+    nextBtn.classList.add('disabled');
+  } else if (currentPart === 1) {
+    prevBtn.classList.add('disabled');
+  } else {
+    nextBtn.classList.remove('disabled');
+    prevBtn.classList.remove('disabled');
+  }
+
+  carousel.style.transform = `translateX(${newTranslateX}px)`;
 }

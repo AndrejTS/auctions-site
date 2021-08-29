@@ -71,6 +71,10 @@ def listing(request, id):
     if request.user.is_authenticated:
         if listing in request.user.watchlist.all():
             is_watched = True
+
+    recommended_products = Listing.objects.filter(
+        category=listing.category).filter(closed=False).exclude(pk=listing.id).order_by('-date_added').all()[:15]
+
     return render(request, "auctions/listing.html", {
         'listing': listing,
         'bids': bids,
@@ -79,7 +83,8 @@ def listing(request, id):
         'watched': is_watched,
         'message': message,
         'user_in_bids': user_in_bids,
-        'breadcrumbs': True
+        'breadcrumbs': True,
+        'recommended_products': recommended_products
     })
 
 
@@ -97,7 +102,7 @@ def search_results(request, searched):
         'searched': searched, 'results': results})
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def bid(request, id):
     if request.method == "POST":
         bid_value = request.POST['amount']
@@ -129,7 +134,7 @@ def bid(request, id):
             reverse("listing", kwargs={'id': id}))
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def comment(request):
     if request.method == "POST":
         content = request.POST['content']
@@ -141,7 +146,7 @@ def comment(request):
         return HttpResponseRedirect(reverse("listing", kwargs={'id': pk}))
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def close_listing(request):
     if request.method == "POST":
         pk = request.POST['id']
@@ -155,7 +160,7 @@ def close_listing(request):
         return HttpResponseRedirect(reverse("listing", kwargs={'id': pk}))
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def watchlist(request):
     if request.method == "GET":
         listings = request.user.watchlist.all()
@@ -166,7 +171,7 @@ def watchlist(request):
         })
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def watchlist_switch(request, id):
     # add or remove item from user's watchlist
     if request.method == "POST":
@@ -204,14 +209,14 @@ def category(request, category_name):
     })
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def profile(request):
     return render(request, "auctions/profile.html", {
         'username': request.user,
     })
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def i_am_bidding(request):
     bids = request.user.bids.order_by('-date_added').all()
     listings = []
@@ -226,7 +231,7 @@ def i_am_bidding(request):
     })
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def my_listings(request):
     listings = request.user.listings.all()
     page = paginator_helper(request, listings)
@@ -236,7 +241,7 @@ def my_listings(request):
     })
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def my_wins(request):
     listings = request.user.wins.all()
     page = paginator_helper(request, listings)
@@ -246,7 +251,7 @@ def my_wins(request):
     })
 
 
-@login_required(login_url='/login/')
+@ login_required(login_url='/login/')
 def dont_won(request):
     bids = request.user.bids.order_by('-date_added').all()
     listings = []
