@@ -97,9 +97,12 @@ def search(request):
 
 def search_results(request, searched):
     results = Listing.objects.filter(
-        closed=False).filter(title__contains=searched)
-    return render(request, "auctions/search_results.html", {
-        'searched': searched, 'results': results})
+        closed=False).filter(title__contains=searched).order_by('-date_added').all()
+    page = paginator_helper(request, results)
+    return render(request, "auctions/listings.html", {
+        'title': 'Search results for: ' + searched,
+        'listings_page': page
+    })
 
 
 @ login_required(login_url='/login/')
@@ -163,7 +166,7 @@ def close_listing(request):
 @ login_required(login_url='/login/')
 def watchlist(request):
     if request.method == "GET":
-        listings = request.user.watchlist.all()
+        listings = request.user.watchlist.order_by('-date_added').all()
         page = paginator_helper(request, listings)
         return render(request, "auctions/listings.html", {
             'title': 'Watchlist',
@@ -200,7 +203,7 @@ def categories(request):
 
 def category(request, category_name):
     listings = Listing.objects.filter(
-        category=category_name).filter(closed=False).all()
+        category=category_name).filter(closed=False).order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': category_name,
@@ -233,7 +236,7 @@ def i_am_bidding(request):
 
 @ login_required(login_url='/login/')
 def my_listings(request):
-    listings = request.user.listings.all()
+    listings = request.user.listings.order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': 'Your listings',
@@ -243,7 +246,7 @@ def my_listings(request):
 
 @ login_required(login_url='/login/')
 def my_wins(request):
-    listings = request.user.wins.all()
+    listings = request.user.wins.order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': 'Auctions you won',
@@ -270,7 +273,8 @@ def user_listings(request, username):
     user = User.objects.get(username=username)
     if user == request.user:
         return HttpResponseRedirect(reverse('my_listings'))
-    listings = Listing.objects.filter(owner=user).filter(closed=False).all()
+    listings = Listing.objects.filter(owner=user).filter(
+        closed=False).order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
         'title': f"Listings by {username}:",
