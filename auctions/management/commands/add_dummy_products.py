@@ -34,3 +34,9 @@ class Command(BaseCommand):
             listing = Listing(title=listing['title'], starting_price=listing['price'], current_price=listing['price'],
                               description=listing['description'], image_url=listing['image'], category=listing['category'], owner=random.choice(users))
             listing.save()
+
+        # Remove 20 oldest products
+        old_products = Listing.objects.order_by('date_added').all()[:20]
+
+        for listing in old_products:
+            listing.delete()
