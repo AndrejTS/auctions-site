@@ -24,7 +24,7 @@ def index(request):
         closed=False).order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
-        'title': 'Active Listings',
+        'title': 'Active listings',
         'listings_page': page
     })
 
