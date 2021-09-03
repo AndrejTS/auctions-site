@@ -75,6 +75,15 @@ def listing(request, id):
     recommended_products = Listing.objects.filter(
         category=listing.category).filter(closed=False).exclude(pk=listing.id).order_by('-date_added').all()[:15]
 
+    if len(recommended_products) < 15:
+        recommended_products = recommended_products[:6]
+        carousel_buttons = False
+    else:
+        carousel_buttons = True
+
+    if len(recommended_products) == 0:
+        recommended_products = False
+
     return render(request, "auctions/listing.html", {
         'listing': listing,
         'bids': bids,
@@ -84,7 +93,8 @@ def listing(request, id):
         'message': message,
         'user_in_bids': user_in_bids,
         'breadcrumbs': True,
-        'recommended_products': recommended_products
+        'recommended_products': recommended_products,
+        'carousel_buttons': carousel_buttons
     })
 
 

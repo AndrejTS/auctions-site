@@ -206,44 +206,48 @@ Auctions - {{ listing.title }}
         </div>
     </div>
 
-    <div class='recommended-products'>
-        <h3>
-            You may also like
-        </h3>
-        <div class='carousel-container'>
-            <div id='prev-btn'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                </svg>
-            </div>
-            <div id='next-btn'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </div>
-            <div class='carousel-wrapper'>
-                <div class='carousel'>
-                    {% for listing in recommended_products %}
-                        <div class='recommended-product-container'>
-                            <a href={% url 'listing' listing.id %}>
-                                <div class='img-container'>
-                                    {% if listing.image_url %}
-                                        <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
-                                    {% else %}
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg">
-                                    {% endif %}
-                                </div>
-                            </a>
-                            <a href={% url 'listing' listing.id %}>
-                                <h4>{{ listing.title }}</h4>
-                            </a>
-                            <p class='listing-price'>${{ listing.current_price }}</p>
-                        </div>
-                    {% endfor %}
+    {% if recommended_products %}
+        <div class='recommended-products'>
+            <h3>
+                You may also like
+            </h3>
+            <div class='carousel-container'>
+                {% if carousel_buttons %}
+                    <div id='prev-btn'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+                    </div>
+                    <div id='next-btn'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </div>
+                {% endif %}
+                <div class='carousel-wrapper'>
+                    <div class='carousel'>
+                        {% for listing in recommended_products %}
+                            <div class='recommended-product-container'>
+                                <a href={% url 'listing' listing.id %}>
+                                    <div class='img-container'>
+                                        {% if listing.image_url %}
+                                            <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
+                                        {% else %}
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg">
+                                        {% endif %}
+                                    </div>
+                                </a>
+                                <a href={% url 'listing' listing.id %}>
+                                    <h4>{{ listing.title }}</h4>
+                                </a>
+                                <p class='listing-price'>${{ listing.current_price }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
