@@ -100,8 +100,9 @@ Auctions - {{ listing.title }}
             </div>
 
             <div class='listing-basic-info'>
-                <p class='detail-start-price'>Starting price: ${{ listing.starting_price }}</p>
+                <p class='time-created'>Creation time: {{ listing.date_added|date:"d M Y, g:i a" }}</p>
                 <p class='detail-listed-by'>Listed by: <a href="{% url 'user_listings' listing.owner %}">{{ listing.owner }}</a></p>
+                {% comment %} <p class='detail-start-price'>Starting price: ${{ listing.starting_price }}</p> {% endcomment %}
             </div>
             
             {% if listing.owner != request.user %}
@@ -139,8 +140,6 @@ Auctions - {{ listing.title }}
 
         </div>
     </div>
-
-    <span class='time-created'>Created: {{ listing.date_added }}</span>
 
     <div class='product-tabs'>
         <p id='description-heading'>Description</p>
