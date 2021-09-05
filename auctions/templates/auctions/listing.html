@@ -77,7 +77,11 @@ Auctions - {{ listing.title }}
                         <p class='bids-info'>No one has bid on this auction</p>
                     {% endif %}
                 {% else %}
-                    <p class='bids-info'>{{ bids.count }} bid(s) in total</p>
+                    {% if bids.count == 1 %}
+                        <p class='bids-info'>{{ bids.count }} bid in total</p>
+                    {% else %}
+                        <p class='bids-info'>{{ bids.count }} bids in total</p>
+                    {% endif %}
                 {% endif %}
 
                 {% if user_in_bids %}
@@ -135,6 +139,8 @@ Auctions - {{ listing.title }}
 
         </div>
     </div>
+
+    <span class='time-created'>Created: {{ listing.date_added }}</span>
 
     <div class='product-tabs'>
         <p id='description-heading'>Description</p>
