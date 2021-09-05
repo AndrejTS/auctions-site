@@ -725,6 +725,7 @@ a:hover {
 
 .detail-listed-by,
 .detail-start-price,
+.time-created,
 .detail-category,
 .bids-info {
   font-size: 14px;
@@ -732,12 +733,14 @@ a:hover {
 }
 .detail-listed-by a,
 .detail-start-price a,
+.time-created a,
 .detail-category a,
 .bids-info a {
   text-decoration: none;
 }
 .detail-listed-by a:hover,
 .detail-start-price a:hover,
+.time-created a:hover,
 .detail-category a:hover,
 .bids-info a:hover {
   text-decoration: underline;
@@ -766,18 +769,10 @@ a:hover {
   max-height: 100%;
 }
 
-.hr-listing {
-  margin: 50px 0;
-}
-
 .product-tabs {
   display: flex;
   justify-content: center;
   margin-top: 75px;
-}
-
-.tabs {
-  margin-bottom: 75px;
 }
 
 #description-heading,
@@ -965,10 +960,6 @@ a:hover {
 
   .product-tabs {
     margin-top: 25px;
-  }
-
-  .tabs {
-    margin-bottom: 25px;
   }
 
   .recommended-products {

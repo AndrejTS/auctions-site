@@ -852,6 +852,7 @@ a:hover {
 
 .detail-listed-by,
 .detail-start-price,
+.time-created,
 .detail-category,
 .bids-info {
   font-size: 14px;
@@ -890,18 +891,18 @@ a:hover {
   }
 }
 
-.hr-listing {
-  margin: 50px 0;
-}
+// .time-created {
+//   text-align: end;
+//   font-size: 12px;
+//   color: #000000cb;
+//   margin-top: 8px;
+//   margin-bottom: 75px;
+// }
 
 .product-tabs {
   display: flex;
   justify-content: center;
   margin-top: 75px;
-}
-
-.tabs {
-  margin-bottom: 75px;
 }
 
 #description-heading,
@@ -930,6 +931,14 @@ a:hover {
     margin: 0;
   }
 }
+
+// #description-tab::before {
+//   content: '';
+//   border: 2px solid green;
+//   width: 100px;
+//   height: 100px;
+//   position: absolute;
+// }
 
 #bids-tab {
   p {
@@ -1109,12 +1118,12 @@ a:hover {
     height: 250px;
   }
 
+  // .time-created {
+  //   margin-bottom: 25px;
+  // }
+
   .product-tabs {
     margin-top: 25px;
-  }
-
-  .tabs {
-    margin-bottom: 25px;
   }
 
   .recommended-products {
