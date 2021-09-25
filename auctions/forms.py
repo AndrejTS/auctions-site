@@ -19,7 +19,7 @@ class ListingForm(ModelForm):
     class Meta:
         model = Listing
         fields = ['title', 'description',
-                  'starting_price', 'image_url', 'category']
+                  'starting_price', 'image_url', 'category', 'end_time']
 
 
 class BidForm(ModelForm):

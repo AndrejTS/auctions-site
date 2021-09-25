@@ -100,7 +100,7 @@ Auctions - {{ listing.title }}
             </div>
 
             <div class='listing-basic-info'>
-                <p class='time-created'>Creation time: {{ listing.date_added|date:"d M Y, g:i a" }}</p>
+                <p class='end-time'>Ends <strong>{{ listing.end_time|date:"l, d M Y, g:i a" }}</strong></p>
                 <p class='detail-listed-by'>Listed by: <a href="{% url 'user_listings' listing.owner %}">{{ listing.owner }}</a></p>
                 {% comment %} <p class='detail-start-price'>Starting price: ${{ listing.starting_price }}</p> {% endcomment %}
             </div>
@@ -125,16 +125,6 @@ Auctions - {{ listing.title }}
                     <a href="{% url 'login' %}?next=/listing/{{ listing.id }}">
                         <button class='watchlist-btn'>Add to watchlist</button>
                     </a>
-                {% endif %}
-            {% endif %}
-
-            {% if listing.closed == False %}
-                {% if listing.owner == request.user %}
-                    <form action={% url 'close_listing' %} method='POST'>
-                        {% csrf_token %}
-                        <input type='hidden' name='id' value={{ listing.id }}>
-                        <button class='btn-md btn btn-danger btn-close-listing' type="submit">Close this auction</button>
-                    </form>
                 {% endif %}
             {% endif %}
 

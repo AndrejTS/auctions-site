@@ -2,14 +2,25 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.paginator import Paginator
+from django.utils import timezone
 
-import json
-
+from auctions import tasks
 from .models import User, Listing, Bid, Comment
 from .forms import ListingForm, BidForm
+
+import json
+import pytz
+
+
+def set_timezone(request):
+    if request.method == 'POST':
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
+    else:
+        return render(request, 'auctions/template.html', {'timezones': pytz.common_timezones})
 
 
 def paginator_helper(request, listings):
@@ -49,16 +60,15 @@ def create_listing(request):
 
 
 def listing(request, id):
-    if request.GET.get('error'):
-        error = request.GET.get('error')
-        if error == 'low_bid':
-            message = 'The bid is too low'
-    else:
-        message = None
     listing = Listing.objects.get(pk=id)
-    bids = Bid.objects.filter(listing=listing).order_by('-date_added').all()
-    comments = Comment.objects.filter(listing=listing).all()
-    is_watched = False
+    # just in case, check if the item is to be closed
+    # (closing items should be handled automatically by the scheduler)
+    if (not listing.closed) and (listing.end_time < timezone.now()):
+        tasks.close_listing(listing.id)
+        listing.refresh_from_db()
+
+    bids = listing.bids.order_by('-date_added')
+    comments = listing.comments.all()
 
     # check if user is bidding
     user_in_bids = False
@@ -68,15 +78,23 @@ def listing(request, id):
                 user_in_bids = True
                 break
 
+    is_watched = False
     if request.user.is_authenticated:
         if listing in request.user.watchlist.all():
             is_watched = True
+
+    if request.GET.get('error'):
+        error = request.GET.get('error')
+        if error == 'low_bid':
+            message = 'The bid is too low'
+    else:
+        message = None
 
     recommended_products = Listing.objects.filter(
         category=listing.category).filter(closed=False).exclude(pk=listing.id).order_by('-date_added').all()[:15]
 
     if len(recommended_products) < 15:
-        recommended_products = recommended_products[:6]
+        recommended_products = recommended_products[:5]
         carousel_buttons = False
     else:
         carousel_buttons = True
@@ -115,13 +133,14 @@ def search_results(request, searched):
     })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def bid(request, id):
     if request.method == "POST":
         bid_value = request.POST['amount']
         listing = Listing.objects.get(pk=id)
-        if listing.closed:
-            return HttpResponse('Listing is no active')
+        if listing.end_time < timezone.now():
+            return HttpResponseRedirect(
+                reverse("listing", kwargs={'id': id}))
         bid_is_too_low = False
         if listing.last_bid is None:
             if int(bid_value) < listing.starting_price:
@@ -141,13 +160,14 @@ def bid(request, id):
                 listing.last_bid = bid_value
                 listing.current_price = bid_value
                 listing.save()
-            return HttpResponseRedirect(reverse("listing", kwargs={'id': id}) + '?bid=placed')
+            return HttpResponseRedirect(
+                reverse("listing", kwargs={'id': id}))
     else:
         return HttpResponseRedirect(
             reverse("listing", kwargs={'id': id}))
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def comment(request):
     if request.method == "POST":
         content = request.POST['content']
@@ -159,21 +179,7 @@ def comment(request):
         return HttpResponseRedirect(reverse("listing", kwargs={'id': pk}))
 
 
-@ login_required(login_url='/login/')
-def close_listing(request):
-    if request.method == "POST":
-        pk = request.POST['id']
-        listing = Listing.objects.get(pk=pk)
-        bids = Bid.objects.filter(listing=listing).all()
-        if listing.owner == request.user:
-            listing.closed = True
-            if bids:
-                listing.winner = bids.last().user
-            listing.save()
-        return HttpResponseRedirect(reverse("listing", kwargs={'id': pk}))
-
-
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def watchlist(request):
     if request.method == "GET":
         listings = request.user.watchlist.order_by('-date_added').all()
@@ -184,7 +190,7 @@ def watchlist(request):
         })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def watchlist_switch(request, id):
     # add or remove item from user's watchlist
     if request.method == "POST":
@@ -222,14 +228,14 @@ def category(request, category_name):
     })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def profile(request):
     return render(request, "auctions/profile.html", {
         'username': request.user,
     })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def i_am_bidding(request):
     bids = request.user.bids.order_by('-date_added').all()
     listings = []
@@ -244,17 +250,17 @@ def i_am_bidding(request):
     })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def my_listings(request):
     listings = request.user.listings.order_by('-date_added').all()
     page = paginator_helper(request, listings)
     return render(request, "auctions/listings.html", {
-        'title': 'Your listings',
+        'title': 'My listings',
         'listings_page': page
     })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def my_wins(request):
     listings = request.user.wins.order_by('-date_added').all()
     page = paginator_helper(request, listings)
@@ -264,7 +270,7 @@ def my_wins(request):
     })
 
 
-@ login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def dont_won(request):
     bids = request.user.bids.order_by('-date_added').all()
     listings = []

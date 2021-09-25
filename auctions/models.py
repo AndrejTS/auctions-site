@@ -22,6 +22,8 @@ class Listing(models.Model):
     watchlist_users = models.ManyToManyField(
         User, related_name='watchlist', blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(
+        help_text="Please use the following format: YYYY-MM-DD HH:MM")
 
     def __str__(self):
         return self.title
@@ -29,16 +31,17 @@ class Listing(models.Model):
 
 class Bid(models.Model):
     amount = models.PositiveIntegerField()
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True)
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, related_name='bids', null=True)
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, related_name='bids')
+        User, on_delete=models.CASCADE, related_name='bids', null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
     content = models.CharField(max_length=250, default='')
     listing = models.ForeignKey(
-        Listing, on_delete=models.CASCADE, default=None)
+        Listing, on_delete=models.CASCADE, default=None, related_name='comments')
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, related_name='comments')
+        User, on_delete=models.CASCADE, related_name='comments')
     date_added = models.DateTimeField(auto_now_add=True)
