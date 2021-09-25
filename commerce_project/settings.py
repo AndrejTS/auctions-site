@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
 from pathlib import Path
 
-# For heroku deploy
 import os
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-kbpikwm2i16aei82pqw+6#e4#a*pa91xdiu!6%bx_7fokfym3l'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -36,13 +36,14 @@ ALLOWED_HOSTS = ['auctions-site-django.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'auctions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'auctions.apps.AuctionsConfig',
+    'django_q'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'auctions.middleware.TimezoneMiddleware'
 ]
 
 ROOT_URLCONF = 'commerce_project.urls'
@@ -114,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Prague'
 
 USE_I18N = True
 
@@ -128,7 +130,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# For heroku deploy
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
@@ -136,5 +137,21 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Django Q config
+Q_CLUSTER = {
+    'name': 'DjangORM',
+    'timeout': 15,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default',
+    'catch_up': False
+}
+
 # For heroku deploy
-django_heroku.settings(locals())
+if os.environ.get('LOCAL_DATABASE_URL'):
+    django_heroku.settings(locals(), databases=False)
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600, ssl_require=False)
+else:
+    django_heroku.settings(locals())
