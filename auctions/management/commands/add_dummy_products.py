@@ -1,10 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
-from auctions.models import Listing
-from auctions.models import User
+from django.utils import timezone
+from auctions.models import Listing, User
 
 import json
 import random
-import time
+import datetime
 
 
 class Command(BaseCommand):
@@ -16,7 +16,9 @@ class Command(BaseCommand):
 
         random.shuffle(products)
 
-        usernames = ['andrej', 'phiLip', 'mary', 'john']
+        with open('dummy_usernames.json') as f:
+            usernames = json.load(f)
+
         users = []
 
         for username in usernames:
@@ -26,17 +28,16 @@ class Command(BaseCommand):
             except User.DoesNotExist:
                 raise CommandError('User "%s" does not exist' % username)
 
-        categories = ['Auto', 'Fashion', 'Electronics',
-                      'Home', 'Books', 'Sport', 'Other']
-
         for listing in products:
-            time.sleep(random.randint(5, 10))
+            end_time = timezone.now() + datetime.timedelta(
+                minutes=random.randint(30, 90))
             listing = Listing(title=listing['title'], starting_price=listing['price'], current_price=listing['price'],
-                              description=listing['description'], image_url=listing['image'], category=listing['category'], owner=random.choice(users))
+                              description=listing['description'], image_url=listing['image'], category=listing['category'], owner=random.choice(users), end_time=end_time)
             listing.save()
 
-        # Remove 20 oldest products
-        old_products = Listing.objects.order_by('date_added').all()[:20]
+        # Remove 20 oldest closed listings
+        old_products = Listing.objects.filter(
+            closed=True).order_by('date_added').all()[:20]
 
         for listing in old_products:
             listing.delete()
