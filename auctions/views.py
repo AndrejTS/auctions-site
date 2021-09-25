@@ -20,7 +20,7 @@ def set_timezone(request):
         request.session['django_timezone'] = request.POST['timezone']
         return redirect('/')
     else:
-        return render(request, 'auctions/template.html', {'timezones': pytz.common_timezones})
+        return render(request, 'auctions/set_timezone.html', {'timezones': pytz.common_timezones})
 
 
 def paginator_helper(request, listings):
