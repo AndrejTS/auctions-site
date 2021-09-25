@@ -649,7 +649,7 @@ a:hover {
   border-radius: 1px;
   background-color: white;
   padding: 15px;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }
 .listing-basic-info form input[type=number]::-webkit-inner-spin-button,
 .listing-basic-info form input[type=number]::-webkit-outer-spin-button {
@@ -725,7 +725,7 @@ a:hover {
 
 .detail-listed-by,
 .detail-start-price,
-.time-created,
+.end-time,
 .detail-category,
 .bids-info {
   font-size: 14px;
@@ -733,14 +733,14 @@ a:hover {
 }
 .detail-listed-by a,
 .detail-start-price a,
-.time-created a,
+.end-time a,
 .detail-category a,
 .bids-info a {
   text-decoration: none;
 }
 .detail-listed-by a:hover,
 .detail-start-price a:hover,
-.time-created a:hover,
+.end-time a:hover,
 .detail-category a:hover,
 .bids-info a:hover {
   text-decoration: underline;
@@ -1028,8 +1028,9 @@ a:hover {
   padding: 25px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+}
+.create-listing br {
+  display: none;
 }
 .create-listing input {
   width: 100%;
@@ -1044,6 +1045,9 @@ a:hover {
 .create-listing textarea {
   width: 100%;
   height: 150px;
+}
+.create-listing span.helptext {
+  font-size: 15px;
 }
 .create-listing #id_title,
 .create-listing #id_description,
@@ -1078,6 +1082,9 @@ a:hover {
 @media only screen and (max-width: 767px) {
   .create-listing {
     width: 100%;
+  }
+  .create-listing span.helptext {
+    font-size: 11px;
   }
 }
 .pagination {
