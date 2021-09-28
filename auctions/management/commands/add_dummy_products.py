@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
         for listing in products:
             end_time = timezone.now() + datetime.timedelta(
-                minutes=random.randint(30, 90))
+                minutes=random.randint(5, 30))
             listing = Listing(title=listing['title'], starting_price=listing['price'], current_price=listing['price'],
                               description=listing['description'], image_url=listing['image'], category=listing['category'], owner=random.choice(users), end_time=end_time)
             listing.save()

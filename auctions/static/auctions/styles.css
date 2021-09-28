@@ -636,48 +636,78 @@ a:hover {
 }
 /* Listings (not one listing!) End*/
 /* Listing */
-.btn-close-listing {
-  display: block;
-  width: 100%;
-  margin: auto;
-  margin-top: 5px;
-  margin-bottom: 2px;
+#end-time-timestamp {
+  display: none;
 }
 
 .listing-basic-info {
-  border: 1px solid #cec9c9;
   border-radius: 1px;
   background-color: white;
   padding: 15px;
   margin-bottom: 2px;
-}
-.listing-basic-info form input[type=number]::-webkit-inner-spin-button,
-.listing-basic-info form input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.listing-basic-info form #id_amount {
-  padding: 3px;
-  border-radius: 1px;
-  border: 1px solid rgba(0, 0, 0, 0.349);
-}
-.listing-basic-info .closed-price {
-  color: #b9bbbc;
 }
 .listing-basic-info p {
   font-size: 14px;
   margin-bottom: 0;
   margin-left: 5px;
 }
-
-.watchlist-form {
-  display: block;
+.listing-basic-info p #remaining-time {
+  margin-left: 5px;
+}
+.listing-basic-info p a {
+  text-decoration: none;
+}
+.listing-basic-info p a:hover {
+  text-decoration: underline;
+}
+.listing-basic-info .bids-info.bid-alert {
+  color: #a70f0f;
+}
+.listing-basic-info .bids-info.bid-is-last {
+  color: green;
 }
 
-.listing-detail-price {
+.price-and-bid .listing-detail-price {
   font-size: 22px;
   margin-bottom: 10px;
   font-weight: 600;
+}
+.price-and-bid form label {
+  font-size: 14px;
+  display: block;
+}
+.price-and-bid form input[type=number]::-webkit-inner-spin-button,
+.price-and-bid form input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.price-and-bid form #id_amount {
+  border-radius: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.349);
+  text-align: end;
+  width: 100%;
+  height: 37px;
+  padding: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+.price-and-bid form .bid-btn {
+  height: 36px;
+  width: 100%;
+  display: block;
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.767);
+  border-radius: 1px;
+  background-color: #3e2723;
+  color: white;
+  font-weight: 600;
+}
+.price-and-bid .closed-price {
+  color: #b9bbbc;
+}
+
+.watchlist-form {
+  display: block;
 }
 
 .watchlist-btn {
@@ -698,62 +728,6 @@ a:hover {
   margin-right: 5px;
 }
 
-.bid-btn {
-  height: 36px;
-  width: 100%;
-  display: block;
-  padding: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.767);
-  border-radius: 1px;
-  background-color: #3e2723;
-  color: white;
-  font-weight: 600;
-}
-
-.listing-basic-info label {
-  font-size: 14px;
-  display: block;
-}
-
-#id_amount {
-  text-align: end;
-  width: 100%;
-  height: 37px;
-  margin-bottom: 3px;
-  margin-top: 3px;
-}
-
-.detail-listed-by,
-.detail-start-price,
-.end-time,
-.detail-category,
-.bids-info {
-  font-size: 14px;
-  margin-bottom: 0;
-}
-.detail-listed-by a,
-.detail-start-price a,
-.end-time a,
-.detail-category a,
-.bids-info a {
-  text-decoration: none;
-}
-.detail-listed-by a:hover,
-.detail-start-price a:hover,
-.end-time a:hover,
-.detail-category a:hover,
-.bids-info a:hover {
-  text-decoration: underline;
-}
-
-.bids-info.bid-alert {
-  color: #a70f0f;
-}
-
-.bids-info.bid-is-last {
-  color: green;
-}
-
 .img-listing-large-container {
   display: flex;
   justify-content: center;
@@ -772,7 +746,7 @@ a:hover {
 .product-tabs {
   display: flex;
   justify-content: center;
-  margin-top: 75px;
+  margin-top: 50px;
 }
 
 #description-heading,
@@ -851,7 +825,8 @@ a:hover {
 .recommended-products {
   width: 100%;
   border-radius: 5px;
-  margin-bottom: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 .recommended-products h3 {
   padding-bottom: 10px;
@@ -963,6 +938,7 @@ a:hover {
   }
 
   .recommended-products {
+    margin-top: 25px;
     margin-bottom: 25px;
   }
   .recommended-products h3 {
@@ -998,7 +974,7 @@ a:hover {
     display: none;
   }
 
-  .listing-detail-price {
+  .price-and-bid .listing-detail-price {
     font-size: 16px;
   }
 

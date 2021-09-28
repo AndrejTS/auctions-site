@@ -1,3 +1,49 @@
+const endTimeTimestamp =
+  document.getElementById('end-time-timestamp').innerText;
+
+const endTime = new Date(parseInt(endTimeTimestamp));
+
+const countdown = document.getElementById('remaining-time');
+
+if (endTime - new Date() >= 0) {
+  var countdownIntervalID = setInterval(updateRemainingTime, 100);
+} else {
+  countdown.remove();
+}
+
+function updateRemainingTime() {
+  let remainingTime = endTime - new Date();
+  let value;
+  if (remainingTime <= 0) {
+    value = 0 + ' s';
+    setTimeout(() => location.reload(), 1500);
+    clearInterval(countdownIntervalID);
+  } else {
+    remainingTime = Math.floor(remainingTime / 1000);
+    if (remainingTime >= 172800) {
+      value = Math.floor(remainingTime / 86400) + ' days';
+    } else if (remainingTime >= 86400) {
+      value = '1 day';
+    } else if (remainingTime >= 7200) {
+      value = Math.floor(remainingTime / 3600) + ' hours';
+    } else if (remainingTime >= 3600) {
+      value = '1 hour';
+    } else if (remainingTime >= 600) {
+      value = Math.floor(remainingTime / 60) + ' minutes';
+    } else if (remainingTime >= 60) {
+      value =
+        Math.floor(remainingTime / 60)
+          .toString(10)
+          .padStart(2, '0') +
+        ':' +
+        (remainingTime % 60).toString(10).padStart(2, '0');
+    } else {
+      value = (remainingTime % 60) + ' s';
+    }
+  }
+  countdown.innerHTML = '(' + value + ')';
+}
+
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {

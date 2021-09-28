@@ -63,10 +63,11 @@ def listing(request, id):
     listing = Listing.objects.get(pk=id)
     # just in case, check if the item is to be closed
     # (closing items should be handled automatically by the scheduler)
-    if (not listing.closed) and (listing.end_time < timezone.now()):
+    if (not listing.closed) and (listing.end_time <= timezone.now()):
         tasks.close_listing(listing.id)
         listing.refresh_from_db()
 
+    js_timestamp = int(listing.end_time.timestamp()) * 1000
     bids = listing.bids.order_by('-date_added')
     comments = listing.comments.all()
 
@@ -104,6 +105,7 @@ def listing(request, id):
 
     return render(request, "auctions/listing.html", {
         'listing': listing,
+        'js_timestamp': js_timestamp,
         'bids': bids,
         'comments': comments,
         'bid_form': BidForm(),
@@ -138,7 +140,7 @@ def bid(request, id):
     if request.method == "POST":
         bid_value = request.POST['amount']
         listing = Listing.objects.get(pk=id)
-        if listing.end_time < timezone.now():
+        if listing.end_time <= timezone.now():
             return HttpResponseRedirect(
                 reverse("listing", kwargs={'id': id}))
         bid_is_too_low = False

@@ -2,10 +2,13 @@
 {% load static %}
 
 {% block title %}
-Auctions - {{ listing.title }}
+{{ listing.title }} - Auctions
 {% endblock %}
 
 {% block body %}
+
+<div id='end-time-timestamp'>{{ js_timestamp }}</div>
+
 <div class='container-lg main-container'> 
 
     {% if breadcrumbs %}
@@ -40,7 +43,7 @@ Auctions - {{ listing.title }}
             </div>
         </div>
         <div class='col-lg-4'>
-            <div class='listing-basic-info'>
+            <div class='listing-basic-info price-and-bid'>
                 {% if listing.closed %}
                     <span class='listing-detail-price closed-price'>Current price: ${{ listing.current_price }}</span>
                 {% else %}
@@ -100,9 +103,8 @@ Auctions - {{ listing.title }}
             </div>
 
             <div class='listing-basic-info'>
-                <p class='end-time'>Ends <strong>{{ listing.end_time|date:"l, d M Y, g:i a" }}</strong></p>
-                <p class='detail-listed-by'>Listed by: <a href="{% url 'user_listings' listing.owner %}">{{ listing.owner }}</a></p>
-                {% comment %} <p class='detail-start-price'>Starting price: ${{ listing.starting_price }}</p> {% endcomment %}
+                <p>Ends: <strong>{{ listing.end_time|date:"d M Y, g:i a" }}</strong><span id='remaining-time'></span></p>
+                <p>Listed by: <a href="{% url 'user_listings' listing.owner %}">{{ listing.owner }}</a></p>
             </div>
             
             {% if listing.owner != request.user %}
