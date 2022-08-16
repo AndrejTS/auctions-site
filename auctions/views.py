@@ -15,14 +15,6 @@ import json
 import pytz
 
 
-def set_timezone(request):
-    if request.method == 'POST':
-        request.session['django_timezone'] = request.POST['timezone']
-        return redirect('/')
-    else:
-        return render(request, 'auctions/set_timezone.html', {'timezones': pytz.common_timezones})
-
-
 def paginator_helper(request, listings):
     p = Paginator(listings, 36)
     page_num = request.GET.get('page', 1)
